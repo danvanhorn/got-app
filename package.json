@@ -5,7 +5,7 @@
   "author": "Dan Van Horn & Bailey Singleton",
   "private": true,
   "scripts": {
-    "server": "npm run build & node ./src/server.js",
+    "server": "npm run build & nodemon ./src/server.js localhost 6969",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "express": "^4.16.2",
+    "nodemon": "^1.14.12",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
