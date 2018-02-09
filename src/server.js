@@ -4,15 +4,9 @@ const path = require('path');
 
 var app = express();
 
+// app.use(db-api)
+
 // this serves our bundled Vue app
-app.use(express.static(path.join(__dirname, '..', 'dist')));
-
-
-app.use(history({
-  disableDotRule: true,
-  verbose: true
-}));
-
 app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 const port = 6969;
