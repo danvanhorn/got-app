@@ -1,7 +1,7 @@
 {
   "name": "got-app",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Game of Thrones web app",
   "author": "Dan Van Horn & Bailey Singleton",
   "private": true,
   "scripts": {
