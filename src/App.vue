@@ -20,12 +20,9 @@ export default {
   methods: {
     handleScroll: (event) => {
       const nav_header = document.getElementById("nav");
-      console.log(`header offset ${nav_header.offsetTop}`);
-      console.log(`window offset ${window.pageYOffset}`);
       if (window.pageYOffset >= 138) {
         nav_header.classList.add("sticky");
       } else {
-        console.log("removing class")
         nav_header.classList.remove("sticky");
       }
     }
