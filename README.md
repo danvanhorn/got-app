@@ -1,9 +1,16 @@
 # got-app
 
-So far we've got 
+First, install the necessary dependencies
 ```
-npm i
-npm run server
+$ npm i
+```
+Start the server
+```
+$ npm run server
+```
+Enable webpack watch to recompile to client side app 
+```
+$ npm run watch
 ```
 
 
