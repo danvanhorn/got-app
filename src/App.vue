@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2>Game of Thrones</h2>
+    <h1>Game of Thrones</h1>
     <div id="nav" class="nav">
       <router-link to="/">Home</router-link>
       <router-link to="/Characters">Characters</router-link>
@@ -20,7 +20,7 @@ export default {
   methods: {
     handleScroll: (event) => {
       const nav_header = document.getElementById("nav");
-      if (window.pageYOffset >= 138) {
+      if (window.pageYOffset >= 130) {
         nav_header.classList.add("sticky");
       } else {
         nav_header.classList.remove("sticky");
@@ -42,18 +42,30 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #2D4659;
   margin-top: 60px;
 }
 
 h2{
   height: 60px;
+  text-align: center;
+}
+
+a, a:visited{
+  color: #2D4659;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #D78857;
+  text-decoration: none;
 }
 
 .nav{
-  padding: 16px 18px;
+  text-align: center;
+  padding-top: 18px;
   width: 100%;
-  background: darkgrey;
+  background: #D9D5D1;
 }
 
 .content{
