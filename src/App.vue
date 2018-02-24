@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <h1>{{pageTitle}}</h1>
+    <div class="banner">
+      <div/>
+    </div>
     <div id="nav" class="nav">
-      <router-link v-on:click.native="changeTitle('Game of Thrones Database')" to="/">Home</router-link>&nbsp;
-      <router-link v-on:click.native="changeTitle('Characters')" to="/Characters">Characters</router-link>&nbsp;
-      <router-link v-on:click.native="changeTitle('Houses')" to="/Houses">Houses</router-link>&nbsp;
-      <router-link v-on:click.native="changeTitle('Alliances')" to="/Alliances">Alliances</router-link>&nbsp;
-      <router-link v-on:click.native="changeTitle('Specialties')" to="/Specialties">Specialties</router-link>&nbsp;
+      <router-link to="/">Home</router-link>&nbsp;
+      <router-link to="/Characters">Characters</router-link>&nbsp;
+      <router-link to="/Houses">Houses</router-link>&nbsp;
+      <router-link to="/Alliances">Alliances</router-link>&nbsp;
+      <router-link to="/Specialties">Specialties</router-link>&nbsp;
     </div> 
     <div class="content" > 
       <router-view />
@@ -18,19 +20,16 @@
 export default {
   name: "App",
   data() {
-    return {pageTitle: "Game of Thrones Database"};
+    return { pageTitle: "Game of Thrones Database" };
   },
   methods: {
-    handleScroll(){
+    handleScroll() {
       const nav_header = document.getElementById("nav");
-      if (window.pageYOffset >= 130) {
+      if (window.pageYOffset >= 200) {
         nav_header.classList.add("sticky");
       } else {
         nav_header.classList.remove("sticky");
       }
-    },
-    changeTitle(newTitle){
-      this.pageTitle = newTitle;
     }
   },
   created() {
@@ -43,25 +42,34 @@ export default {
 </script>
 
 <style>
+.banner {
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  width: 100%;
+}
+
+.banner div {
+  background-image: url(./assets/got-banner.png);
+  height: 200px;
+  width: 1600px;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2d4659;
-  margin-top: 60px;
-}
-
-h2 {
-  height: 60px;
-  text-align: center;
+  color: #7d828c;
 }
 
 a {
-  color: #2d4659;
+  color: #7d828c;
   text-decoration: none;
+  padding-left: 20px;
 }
-
 a:visited {
   text-decoration: none;
 }
@@ -70,25 +78,34 @@ a:hover {
   color: #d78857;
   text-decoration: none;
 }
-
 .nav {
   text-align: center;
   padding-top: 18px;
+  padding-bottom: 16px;
   width: 100%;
-  background: #d9d5d1;
+  background: #272C33;
+  box-shadow: 0px 5px 5px #272C33;
 }
-
 .content {
   padding: 16px;
 }
-
 .sticky {
   position: fixed;
   top: 0;
   left: 0;
 }
-
 .sticky + .content {
   padding-top: 60px;
 }
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 100%;
+}
 </style>
+
+
+
+

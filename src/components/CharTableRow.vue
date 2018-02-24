@@ -1,10 +1,12 @@
 <template>
     <div class='table-row'>
-        <div>full name</div>
-        <div>nickname</div>
-        <div>age</div>
-        <div>gender</div>
-        <div>house</div>
+      <div/>
+      <div>full name</div>
+      <div>nickname</div>
+      <div>age</div>
+      <div>gender</div>
+      <div>house</div>
+      <div/>
     </div>
 </template>
 
@@ -13,19 +15,19 @@ import { CharacterModel } from "../models/models";
 export default {
   name: "CharTableRow",
   props: {
-      // we will probably turn the required attribute to true when we have data
-      character: {
-          type: new CharacterModel(),
-          required: false
-      }
+    // we will probably turn the required attribute to true when we have data
+    character: {
+      type: new CharacterModel(),
+      required: false
+    }
   },
-  computed:{
-      fullName(){
-          const {fname, lname} = props.character;
-          if(fname && fname){
-              return `${fname} ${lname}`;
-          }
+  computed: {
+    fullName() {
+      const { fname, lname } = props.character;
+      if (fname && fname) {
+        return `${fname} ${lname}`;
       }
+    }
   }
 };
 </script>
@@ -34,6 +36,6 @@ export default {
 <style scoped>
 .table-row {
   display: grid;
-  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-columns: 12.5% 15% 15% 15% 15% 15% 12.5%;
 }
 </style>
