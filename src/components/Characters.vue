@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Characters</h2>
     <div class="table-container">
       <row/>
     </div>
