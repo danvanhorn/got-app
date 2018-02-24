@@ -1,15 +1,15 @@
 <template>
-  <div class="home">
+  <div>
     {{msg}}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Alliances',
   data() {
     return {
-      msg: 'Home page',
+      msg: 'Alliances page',
     };
   },
 };
@@ -17,7 +17,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home{
-  height: 1000px;
-}
+
 </style>

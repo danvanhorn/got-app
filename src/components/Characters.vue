@@ -1,5 +1,5 @@
 <template>
-  <div class="characters">
+  <div>
     {{msg}}
   </div>
 </template>
@@ -9,7 +9,7 @@ export default {
   name: 'Characters',
   data() {
     return {
-      msg: 'Welcome to the characters page',
+      msg: 'Characters page',
     };
   },
 };

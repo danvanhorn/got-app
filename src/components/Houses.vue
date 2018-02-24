@@ -1,15 +1,15 @@
 <template>
-  <div class="home">
+  <div>
     {{msg}}
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Houses',
   data() {
     return {
-      msg: 'Home page',
+      msg: 'Houses page',
     };
   },
 };
@@ -17,7 +17,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home{
-  height: 1000px;
-}
+    .navbar{
+        display: flex;
+        width: 100%;
+        background: black;
+    }
 </style>
