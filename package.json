@@ -11,7 +11,8 @@
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "webpack --progress --hide-modules -p"
+    "build": "webpack --progress --hide-modules -p",
+    "watch": "webpack --watch --progress --hide-modules -p"
   },
   "dependencies": {
     "babel-minify-webpack-plugin": "^0.3.0",

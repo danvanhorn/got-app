@@ -11,6 +11,10 @@ module.exports = {
     path: path.resolve(__dirname, './dist'),
     filename: 'build.[hash].js'
   },
+  devServer: {
+    contentBase: './dist',
+    hot: true
+  },
   module: {
     rules: [
       {
