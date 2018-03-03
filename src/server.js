@@ -1,10 +1,17 @@
 const express = require('express');
 const history = require('connect-history-api-fallback');
 const path = require('path');
+const Dal = require('./dal/dal');
 
-var app = express();
+// password to the db enter it as a cmd line arg
+const password = process.argv[4];
 
-// app.use(db-api)
+
+// object that can query our database and return results
+const dal = new Dal(password);
+const { character, house, specialty, alliance } = dal.tables;
+
+const app = express();
 
 // this serves our bundled Vue app
 app.use(express.static(path.join(__dirname, '..', 'dist')));

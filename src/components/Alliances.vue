@@ -1,10 +1,14 @@
 <template>
   <div>
-    {{msg}}
+    <h2>Alliances</h2>
+    <div class="table-container">
+      <row/>
+    </div>
   </div>
 </template>
 
 <script>
+import AllyTableRow from './AllyTableRow.vue';
 export default {
   name: 'Alliances',
   data() {
@@ -12,6 +16,9 @@ export default {
       msg: 'Alliances page',
     };
   },
+  components: {
+    'row': AllyTableRow
+  }
 };
 </script>
 

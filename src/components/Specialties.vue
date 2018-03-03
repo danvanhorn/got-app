@@ -1,10 +1,14 @@
 <template>
   <div>
-    {{msg}}
+    <h2>Specialties</h2>
+    <div class="table-container">
+      <row/>
+    </div>
   </div>
 </template>
 
 <script>
+import SpecTableRow from './SpecTableRow.vue';
 export default {
   name: 'Specialties',
   data() {
@@ -12,6 +16,9 @@ export default {
       msg: 'Specialties page',
     };
   },
+  components: {
+    'row': SpecTableRow
+  }
 };
 </script>
 

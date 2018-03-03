@@ -12,7 +12,7 @@ import Houses from './components/Houses';
 
 Vue.config.productionTip = false;
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
   mode: 'hash',

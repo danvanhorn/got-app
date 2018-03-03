@@ -2,8 +2,8 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP TABLE IF EXISTS got_house;
 DROP TABLE IF EXISTS got_character;
+DROP TABLE IF EXISTS got_house;
 DROP TABLE IF EXISTS got_specialty;
 DROP TABLE IF EXISTS got_alliance;
 DROP TABLE IF EXISTS got_char_spec;
@@ -19,7 +19,8 @@ CREATE TABLE got_house(
     castle varchar(255),
     words varchar(255),
     PRIMARY KEY (id),
-    FOREIGN KEY (lord_id) REFERENCES got_character(id) ON DELETE SET NULL
+    UNIQUE KEY(name),
+    FOREIGN KEY (lord_id) REFERENCES got_character(id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -30,10 +31,10 @@ CREATE TABLE got_character (
     nickname varchar(255),
     gender varchar(255),
     age INT(11) UNSIGNED,
-    house_id INT(11) UNSIGNED,
+    house varchar(255),
     PRIMARY KEY (id),
     UNIQUE KEY (fname, lname),
-    FOREIGN KEY (house_id) REFERENCES got_house(id) ON DELETE SET NULL
+    FOREIGN KEY (house) REFERENCES got_house(name)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE got_specialty (
