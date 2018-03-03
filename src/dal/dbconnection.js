@@ -1,8 +1,13 @@
 const mysql = require('mysql');
 
 module.exports = class DbConnection {
-  constructor(host, user, password, database) {
-    this.connection = mysql.createConnection({ host, user, password, database });
+  constructor(password) {
+    this.connection = mysql.createConnection({ 
+      host: "classmysql.engr.oregonstate.edu", 
+      user: "cs340_vanhornd", 
+      password, 
+      database: "cs340_vanhornd" 
+    });
     this.connect();
   }
 

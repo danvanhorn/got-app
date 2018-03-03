@@ -1,16 +1,16 @@
 const express = require('express');
 const history = require('connect-history-api-fallback');
 const path = require('path');
-const DbConnection = require('./dal/dbconnection');
+const Dal = require('./dal/dal');
 
+// password to the db enter it as a cmd line arg
 const password = process.argv[4];
 
-const conn = new DbConnection(
-  'classmysql.engr.oregonstate.edu',
-  'cs340_vanhornd',
-  password,
-  'cs340_vanhornd'
-).getConnection();
+
+// object that can query our database and return results
+const dal = new Dal(password);
+const { character, house, specialty, alliance } = dal.tables;
+
 const app = express();
 
 // this serves our bundled Vue app
