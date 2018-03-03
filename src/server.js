@@ -1,10 +1,17 @@
 const express = require('express');
 const history = require('connect-history-api-fallback');
 const path = require('path');
+const DbConnection = require('./dal/dbconnection');
 
-var app = express();
+const password = process.argv[4];
 
-// app.use(db-api)
+const conn = new DbConnection(
+  'classmysql.engr.oregonstate.edu',
+  'cs340_vanhornd',
+  password,
+  'cs340_vanhornd'
+).getConnection();
+const app = express();
 
 // this serves our bundled Vue app
 app.use(express.static(path.join(__dirname, '..', 'dist')));
