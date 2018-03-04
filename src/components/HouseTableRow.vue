@@ -1,13 +1,23 @@
 <template>
-    <div class='table-row'>
+    <div v-if="house === undefined" class='table-row'>
         <div/>
-        <div>name</div>
-        <div>sigil</div>
-        <div>location</div>
-        <div>lord</div>
-        <div>castle</div>
-        <div>words</div>
+        <div><strong>Name</strong></div>
+        <div><strong>Sigil</strong></div>
+        <div><strong>Location</strong></div>
+        <div><strong>Lord</strong></div>
+        <div><strong>Castle</strong></div>
+        <div><strong>Words</strong></div>
         <div/>
+    </div>
+    <div v-else class='table-row'>
+      <div/>
+      <div class="table-item">{{house.name}}</div>
+      <div class="table-item">{{house.sigil}}</div>
+      <div class="table-item">{{house.location}}</div>
+      <div class="table-item">{{house.lord}}</div>
+      <div class="table-item">{{house.castle}}</div>
+      <div class="table-item">{{house.words}}</div>
+      <div/>
     </div>
 </template>
 
@@ -30,5 +40,11 @@ export default {
 .table-row {
   display: grid;
   grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+}
+
+.table-item {
+  text-align: left;
+  padding-top: 5px;
+  padding-right: 5px;
 }
 </style>

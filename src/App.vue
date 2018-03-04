@@ -9,6 +9,7 @@
       <router-link to="/Houses">Houses</router-link>&nbsp;
       <router-link to="/Alliances">Alliances</router-link>&nbsp;
       <router-link to="/Specialties">Specialties</router-link>&nbsp;
+      <router-link to="/api/*"></router-link>&nbsp;
     </div> 
     <div class="content" > 
       <router-view />

@@ -24,15 +24,15 @@ class HouseModel {
 
 class SpecialtyModel {
     constructor(id, specialty_type){
-        this.s_id = id;
+        this.id = id;
         this.specialty_type = specialty_type;
     }
 }
 
 class AllianceModel {
-    constructor(id, specialty_type){
+    constructor(id, name){
         this.a_id = id;
-        this.name = specialty_type;
+        this.name = name;
     }
 }
 

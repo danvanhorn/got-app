@@ -12,12 +12,17 @@
     "watch": "webpack --watch --progress --hide-modules -p"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-minify-webpack-plugin": "^0.3.0",
+    "body-parser": "^1.18.2",
     "clean-webpack-plugin": "^0.1.18",
+    "connect": "^3.6.6",
     "express": "^4.16.2",
     "my-sql": "^1.2.15",
     "nodemon": "^1.14.12",
+    "serve-static": "^1.13.2",
     "vue": "^2.5.2",
+    "vue-axios": "^2.0.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

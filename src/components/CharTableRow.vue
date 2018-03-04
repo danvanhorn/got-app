@@ -1,11 +1,20 @@
 <template>
-    <div class='table-row'>
+    <div v-if="character === undefined" v-else class='table-row'>
       <div/>
-      <div>full name</div>
-      <div>nickname</div>
-      <div>age</div>
-      <div>gender</div>
-      <div>house</div>
+      <div><strong>Full Name</strong></div>
+      <div><strong>Nickname</strong></div>
+      <div><strong>Age</strong></div>
+      <div><strong>Gender</strong></div>
+      <div><strong>House</strong></div>
+      <div/>
+    </div>
+    <div v-else class='table-row'>
+      <div/>
+      <div class="table-item">{{fullName}}</div>
+      <div class="table-item">{{character.nickname}}</div>
+      <div class="table-item">{{character.age}}</div>
+      <div class="table-item">{{character.gender}}</div>
+      <div class="table-item">{{character.house}}</div>
       <div/>
     </div>
 </template>
@@ -23,7 +32,8 @@ export default {
   },
   computed: {
     fullName() {
-      const { fname, lname } = props.character;
+      const { fname, lname } = this.character;
+      console.log(this.character);
       if (fname && fname) {
         return `${fname} ${lname}`;
       }
@@ -37,5 +47,11 @@ export default {
 .table-row {
   display: grid;
   grid-template-columns: 12.5% 15% 15% 15% 15% 15% 12.5%;
+}
+
+.table-item {
+  text-align: left;
+  padding-top: 5px;
+  padding-right: 5px;
 }
 </style>

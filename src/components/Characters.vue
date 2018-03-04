@@ -1,23 +1,57 @@
 <template>
   <div>
-    <h2>Characters</h2>
-    <div class="table-container">
-      <row/>
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+    <div>
+      <h2>Characters</h2>
+      <div class="table-container">
+        <row/>
+        <row v-for="char in characters" v-bind:character="char"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import CharTableRow from "./CharTableRow.vue";
+import { CharacterModel } from "../models/models";
 export default {
   name: "Characters",
   data() {
     return {
-      msg: "Characters page"
+      msg: "Characters page",
+      characters: null,
+      loading: false
     };
   },
   components: {
     row: CharTableRow
+  },
+  created() {
+    let chars = [];
+    this.loading = true;
+    this.axios
+      .get("api/get/got_character")
+      .then(function(response) {
+        response.data.forEach(char => {
+          console.log(char);
+          chars.push(new CharacterModel(
+            char.id,
+            char.fname,
+            char.lname,
+            char.nickname,
+            char.gender,
+            char.age,
+            char.house
+          ));
+        });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    this.loading = false;
+    this.characters = chars;
   }
 };
 </script>
