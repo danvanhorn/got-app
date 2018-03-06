@@ -1,5 +1,5 @@
 class CharacterModel {
-    constructor(id,fname,lname,nickname,gender,age,house){
+    constructor(id, fname, lname, nickname, gender, age, house) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -11,35 +11,43 @@ class CharacterModel {
 }
 
 class HouseModel {
-    constructor(id,name,sigil,location,lord,castle,words){
+    constructor(id, name, sigil, location, lord, castle, words) {
         this.id = id;
         this.name = name;
         this.sigil = sigil;
         this.location = location;
         this.lord = lord;
         this.castle = castle;
-        this.words = words;       
+        this.words = words;
     }
 }
 
 class SpecialtyModel {
-    constructor(id, specialty_type){
+    constructor(id, specialty_type) {
         this.id = id;
         this.specialty_type = specialty_type;
     }
 }
 
 class AllianceModel {
-    constructor(id, name){
+    constructor(id, name) {
         this.a_id = id;
         this.name = name;
     }
 }
 
 class SpecialtyViewModel {
-    constructor(specialty, character){
+    constructor(specialty, character) {
         this.specialty = new SpecialtyModel(specialty.id, specialty.specialty_type);
         this.character = new CharacterModel(character.id, character.fname, character.lname, character.nickname, character.gender, character.age, character.house);
+    }
+}
+
+class AllianceViewModel {
+    constructor(ally, house, char) {
+        this.alliance = new AllianceModel(ally.a_id, ally.name);
+        this.house = house ? new HouseModel(house.id, house.name, house.sigil, house.location, house.lord, house.castle, house.words) : undefined;
+        this.character = char ? new CharacterModel(char.id, char.fname, char.lname, char.nickname, char.gender, char.age, char.house) : undefined;
     }
 }
 

@@ -59,10 +59,9 @@ class Dal {
                             LEFT JOIN ${character} c ON c.id = h.lord_id`, (err, results, fields) => {
                     if (err) reject(err);
                     else {
-                        houseList = results.map(res => {
-                            console.log(res)
-                            return new models.HouseModel(res.id, res.name, res.sigil, res.location, res.lord, res.castle, res.castle)
-                        });
+                        houseList = results.map(res => 
+                            new models.HouseModel(res.id, res.name, res.sigil, res.location, res.lord, res.castle, res.castle)
+                        );
                         resolve(houseList);
                     }
                 })
@@ -70,7 +69,7 @@ class Dal {
     }
 
     async getSpecViewData() {
-        const { specialty, character, char_spec } = this.tables;
+        const { specialty, character, house, ally_house, ally_char } = this.tables;
         let specList = [];
         return new Promise((resolve, reject) => {
             this.conn.query(`SELECT s.id AS sid, specialty_type, c.id AS cid, fname, lname, nickname, gender, age, house FROM ${specialty} s 
@@ -78,22 +77,38 @@ class Dal {
                             INNER JOIN ${character} c ON c.id = sc.char_id`, (err, results, fields) => {
                     if (err) reject(err);
                     else {
-                        specList = results.map(res => {
-                            console.log(res);
-                            return new models.SpecialtyViewModel(
+                        specList = results.map(res => 
+                            new models.SpecialtyViewModel(
                                 new models.SpecialtyModel(res.sid, res.specialty_type),
                                 new models.CharacterModel(res.cid, res.fname, res.lname, res.nickname, res.gender, res.age, res.house)
-                            );
-                        });
+                            ));
                         resolve(specList);
                     }
                 })
         })
     }
 
-    async getAllyViewData() {
-
-    }
+    // async getAllyViewData() {
+    //     const { alliance, character, char_spec } = this.tables;
+    //     let specList = [];
+    //     return new Promise((resolve, reject) => {
+    //         this.conn.query(`SELECT * FROM ${specialty} s 
+    //                         INNER JOIN ${char_spec} sc ON s.id = sc.spec_id
+    //                         INNER JOIN ${character} c ON c.id = sc.char_id`, (err, results, fields) => {
+    //                 if (err) reject(err);
+    //                 else {
+    //                     specList = results.map(res => {
+    //                         console.log(res);
+    //                         return new models.SpecialtyViewModel(
+    //                             new models.SpecialtyModel(res.sid, res.specialty_type),
+    //                             new models.CharacterModel(res.cid, res.fname, res.lname, res.nickname, res.gender, res.age, res.house)
+    //                         );
+    //                     });
+    //                     resolve(specList);
+    //                 }
+    //             })
+    //     })
+    // }
 }
 
 module.exports = Dal;
