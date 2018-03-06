@@ -38,7 +38,7 @@ class AllianceModel {
 
 class SpecialtyViewModel {
     constructor(specialty, character){
-        this.speciality = new SpecialtyModel(spec.id, spec.specialty_type);
+        this.specialty = new SpecialtyModel(specialty.id, specialty.specialty_type);
         this.character = new CharacterModel(character.id, character.fname, character.lname, character.nickname, character.gender, character.age, character.house);
     }
 }
