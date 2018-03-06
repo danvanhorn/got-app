@@ -7,7 +7,7 @@
       <h2>Characters</h2>
       <div class="table-container">
         <row/>
-        <row v-for="char in characters" v-bind:character="char"/>
+        <row v-for="char in characters" v-bind:key="char.id" v-bind:character="char"/>
       </div>
     </div>
   </div>

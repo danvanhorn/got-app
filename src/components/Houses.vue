@@ -3,7 +3,7 @@
     <h2>Houses</h2>
     <div class="table-container">
       <row/>
-      <row v-for="house in houses" v-bind:house="house"/>
+      <row v-for="house in houses" v-bind:key="house.id" v-bind:house="house"/>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
     let houseArray = [];
     this.loading = true;
     this.axios
-      .get("api/get/got_house")
+      .get("api/view/got_house")
       .then(function(response) {
         console.log(response)
         response.data.forEach(house => {

@@ -16,16 +16,28 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/api/get/:table', (req, res, next) => {
+app.get('/api/get/:table', (req, res) => {
   const table = req.params.table;
-  if(dal.validateTable(table)){
+  if (dal.validateTable(table)) {
     dal.selectAll(table)
-    .then(result => res.json(result))
-    .catch(err => console.log(err))
-  }else{
-    res.send(500);
+      .then(result => res.json(result))
+      .catch(err => res.sendStatus(500))
   }
+})
 
+app.get('/api/view/:table', (req, res) => {
+  const table = req.params.table;
+  if (dal.validateTable(table)) {
+    if (table === house) {
+      dal.getHouseViewData()
+        .then(result => res.json(result))
+        .catch(err => res.sendStatus(500))
+    } else if (table === specialty) {
+      dal.getSpecViewData()
+        .then(result => res.json(result))
+        .catch(err => res.sendStatus(500))
+    }
+  }
 })
 
 // this serves our bundled Vue app
