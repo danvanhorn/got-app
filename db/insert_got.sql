@@ -67,10 +67,15 @@ INSERT INTO got_alliance(name) VALUES ('Evil');
 INSERT INTO got_alliance(name) VALUES ('In Power');
 INSERT INTO got_alliance(name) VALUES ('Rebellion');
 
-/*people alliance relationship */
+/* character alliance relationship */
 
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="In Power"),(SELECT * FROM got_character WHERE fname="Gregor" AND lname="Clegaine"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="Neutral"),(SELECT * FROM got_character WHERE fname="Sandor" AND lname="Clegaine"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="Rebellion"),(SELECT * FROM got_character WHERE fname="Brienne" AND lname="Tarth"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="In Power"),(SELECT * FROM got_character WHERE fname="Bronn"));
 
 /* house alliance relationship */
+
 INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Lannister of Casterly Rock'), (SELECT id FROM got_alliance WHERE name = 'In Power'));
 INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Stark of Winterfell'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
 INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = "Baratheon of Storm's End"), (SELECT id FROM got_alliance WHERE name = 'In Power'));
