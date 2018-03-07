@@ -5,12 +5,18 @@
         Loading...
     </div>
     <div v-else>
-      <button v-on:click="toggleAdd">{{add ? 'Cancel ': 'Edit'}}</button>
+      <button v-on:click="toggleEdit">
+        {{edit ? 'Cancel ': 'Edit'}}
+      </button>
       <row/>
-      <div v-if="add">
+      <div v-if="edit">
         <add-house :characters="characters"/>
       </div>
-      <row v-for="house in houses" v-bind:key="house.id" v-bind:house="house"/>
+      <row v-for="house in houses" 
+        :key="house.id" 
+        :house="house" 
+        :edit="edit"
+      />
     </div>
   </div>
 </template>
@@ -23,7 +29,7 @@ export default {
   name: "Houses",
   data() {
     return {
-      add: false,
+      edit: false,
       houses: null,
       characters: null
     };
@@ -33,8 +39,8 @@ export default {
     "add-house": AddHouse
   },
   methods: {
-    toggleAdd() {
-      this.add = !this.add;
+    toggleEdit() {
+      this.edit = !this.edit;
     },
     fetchHouseViewModel() {
       let houseArray = [];
