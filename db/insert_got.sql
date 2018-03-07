@@ -69,10 +69,10 @@ INSERT INTO got_alliance(name) VALUES ('Rebellion');
 
 /* character alliance relationship */
 
-INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="In Power"),(SELECT * FROM got_character WHERE fname="Gregor" AND lname="Clegaine"));
-INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="Neutral"),(SELECT * FROM got_character WHERE fname="Sandor" AND lname="Clegaine"));
-INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="Rebellion"),(SELECT * FROM got_character WHERE fname="Brienne" AND lname="Tarth"));
-INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="In Power"),(SELECT * FROM got_character WHERE fname="Bronn"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT id FROM got_alliance WHERE name="In Power"),(SELECT id FROM got_character WHERE fname="Gregor" AND lname="Clegaine"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT id FROM got_alliance WHERE name="Neutral"),(SELECT id FROM got_character WHERE fname="Sandor" AND lname="Clegaine"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT id FROM got_alliance WHERE name="Rebellion"),(SELECT id FROM got_character WHERE fname="Brienne" AND lname="Tarth"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT id FROM got_alliance WHERE name="In Power"),(SELECT id FROM got_character WHERE fname="Bronn"));
 
 /* house alliance relationship */
 
