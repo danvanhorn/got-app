@@ -25,7 +25,7 @@ export default {
     },
     character: {
       type: new CharacterModel(),
-      required: false     
+      required: false
     }
   },
   computed: {

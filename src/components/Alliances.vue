@@ -8,16 +8,16 @@
 </template>
 
 <script>
-import AllyTableRow from './AllyTableRow.vue';
+import AllyTableRow from "./AllyTableRow.vue";
 export default {
-  name: 'Alliances',
+  name: "Alliances",
   data() {
     return {
-      msg: 'Alliances page',
+      msg: "Alliances page"
     };
   },
   components: {
-    'row': AllyTableRow
+    row: AllyTableRow
   }
 };
 </script>

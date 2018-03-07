@@ -33,7 +33,6 @@ export default {
   computed: {
     fullName() {
       const { fname, lname } = this.character;
-      console.log(this.character);
       if (fname && fname) {
         return `${fname} ${lname}`;
       }

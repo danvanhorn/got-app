@@ -42,10 +42,13 @@ export default {
   methods: {
     fetchViewData() {
       let specList = [];
-      this.axios
-        .get("api/view/got_specialty")
+      window
+        .fetch("api/view/got_specialty")
         .then(function(response) {
-          response.data.forEach(s =>
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(s =>
             specList.push(
               new SpecialtyViewModel(
                 new SpecialtyModel(s.specialty.id, s.specialty.specialty_type),
@@ -69,10 +72,15 @@ export default {
     },
     fetchSpecTypes() {
       let specTypesList = [];
-      this.axios
-        .get("api/get/got_specialty")
+      window
+        .fetch("api/get/got_specialty")
         .then(function(response) {
-          response.data.forEach(t => specTypesList.push(new SpecialtyModel(t.id, t.specialty_type)));
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(t =>
+            specTypesList.push(new SpecialtyModel(t.id, t.specialty_type))
+          );
         })
         .catch(function(error) {
           console.log(error);

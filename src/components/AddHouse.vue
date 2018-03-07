@@ -12,7 +12,12 @@
       </div>
       <div class="table-item">
         <select v-bind="house.lord">
-          <option/>
+          <option 
+            v-for="char in characters" 
+            :key="char.id" 
+            value="char">
+            {{getName(char)}}
+          </option>
         </select>
       </div>
       <div class="table-item">
@@ -30,7 +35,7 @@
 <script>
 import { HouseModel } from "../models/models";
 export default {
-  name: 'AddHouse',
+  name: "AddHouse",
   data() {
     return {
       house: {
@@ -41,8 +46,11 @@ export default {
   },
   props: ["characters"],
   methods: {
-    addHouse(){
+    addHouse() {
       console.log(this.house);
+    },
+    getName(char) {
+      return `${char.fname} ${char.lname}`;
     }
   }
 };
@@ -64,5 +72,32 @@ export default {
 .add-button {
   padding-top: 5px;
   justify-self: left;
+}
+
+input {
+  background-color: #313740;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid #7d828c;
+  outline: none;
+  color: #b6bdcc;
+}
+
+select {
+  border: 0;
+  background-color: #313740;
+  border-bottom: 1px solid #7d828c;
+  outline: none;
+  color: #b6bdcc;
+}
+
+select:hover,
+input:hover {
+  border-bottom: 1px solid #d78857;
+}
+select:focus,
+input:focus {
+  border-bottom: 2px solid #d78857;
 }
 </style>

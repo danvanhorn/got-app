@@ -5,10 +5,10 @@
         Loading...
     </div>
     <div v-else>
-      <button v-on:click="toggleAdd">{{add ? 'Cancel ': 'New House'}}</button>
+      <button v-on:click="toggleAdd">{{add ? 'Cancel ': 'Edit'}}</button>
       <row/>
       <div v-if="add">
-        <add-house/>
+        <add-house :characters="characters"/>
       </div>
       <row v-for="house in houses" v-bind:key="house.id" v-bind:house="house"/>
     </div>
@@ -16,58 +16,86 @@
 </template>
 
 <script>
-import HouseTableRow from './HouseTableRow.vue';
-import AddHouse from './AddHouse';
-import {HouseModel} from '../models/models';
+import HouseTableRow from "./HouseTableRow.vue";
+import AddHouse from "./AddHouse";
+import { HouseModel, CharacterModel } from "../models/models";
 export default {
-  name: 'Houses',
+  name: "Houses",
   data() {
     return {
-      msg: 'Houses page',
       add: false,
-      houses: null
+      houses: null,
+      characters: null
     };
   },
   components: {
-    'row': HouseTableRow,
-    'add-house': AddHouse
+    row: HouseTableRow,
+    "add-house": AddHouse
   },
-  methods:{
-    toggleAdd(){
+  methods: {
+    toggleAdd() {
       this.add = !this.add;
     },
-    fetchHouseViewModel(){
+    fetchHouseViewModel() {
       let houseArray = [];
-      this.axios
-        .get("api/view/got_house")
+      window
+        .fetch("api/view/got_house")
         .then(function(response) {
-          console.log(response)
-          response.data.forEach(house => {
-            houseArray.push(new HouseModel(
-              house.id,
-              house.name,
-              house.sigil,
-              house.location,
-              house.lord,
-              house.castle,
-              house.words
-            ));
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(house => {
+            houseArray.push(
+              new HouseModel(
+                house.id,
+                house.name,
+                house.sigil,
+                house.location,
+                house.lord,
+                house.castle,
+                house.words
+              )
+            );
           });
         })
         .catch(function(error) {
           console.log(error);
         });
-      
+
       this.houses = houseArray;
     },
-    fetchNonLords(){
-      // fetch all characters who are not lords
+    fetchCharacters() {
+      let characterArray = [];
+      window
+        .fetch("api/get/got_character")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(char => {
+            characterArray.push(
+              new CharacterModel(
+                char.id,
+                char.fname,
+                char.lname,
+                char.nickname,
+                char.gender,
+                char.age,
+                char.house
+              )
+            );
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.characters = characterArray;
     }
   },
   created() {
     this.loading = true;
     this.fetchHouseViewModel();
-    //this.fetchNonLords();
+    this.fetchCharacters();
     this.loading = false;
   }
 };
