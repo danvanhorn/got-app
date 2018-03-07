@@ -84,8 +84,8 @@ a:hover {
   padding-top: 18px;
   padding-bottom: 16px;
   width: 100%;
-  background: #272C33;
-  box-shadow: 0px 5px 5px #272C33;
+  background: #272c33;
+  box-shadow: 0px 5px 5px #272c33;
 }
 .content {
   padding: 16px;
@@ -104,6 +104,24 @@ a:hover {
   flex-direction: column;
   align-content: center;
   width: 100%;
+}
+
+button{
+  background-color: black;
+  color: #7d828c;
+  border: 0;
+  border-radius: 3px;
+  padding: 5px;
+  outline: 0;
+}
+
+button:active{
+  backround-color: #d78857;
+  color: #272c33;
+}
+
+button:hover{
+  color: #d78857;
 }
 </style>
 

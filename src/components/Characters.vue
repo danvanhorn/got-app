@@ -1,7 +1,7 @@
 <template>
   <div class="table-container">
     <h2>Characters</h2>
-    <div class="loading" v-if="loading === false">
+    <div class="loading" v-if="loading === true">
       Loading...
     </div>
     <div v-else>
@@ -18,7 +18,6 @@ export default {
   name: "Characters",
   data() {
     return {
-      msg: "Characters page",
       characters: null,
       loading: false
     };
@@ -26,30 +25,39 @@ export default {
   components: {
     row: CharTableRow
   },
-  created() {
-    let chars = [];
-    this.loading = true;
-    this.axios
-      .get("api/get/got_character")
-      .then(function(response) {
-        response.data.forEach(char => {
-          console.log(char);
-          chars.push(new CharacterModel(
-            char.id,
-            char.fname,
-            char.lname,
-            char.nickname,
-            char.gender,
-            char.age,
-            char.house
-          ));
+  methods: {
+    fetchCharacters() {
+      let chars = [];
+      window
+        .fetch("api/get/got_character")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(char => {
+            chars.push(
+              new CharacterModel(
+                char.id,
+                char.fname,
+                char.lname,
+                char.nickname,
+                char.gender,
+                char.age,
+                char.house
+              )
+            );
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
         });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+      this.characters = chars;
+    }
+  },
+  created() {
+    this.loading = true;
+    this.fetchCharacters();
     this.loading = false;
-    this.characters = chars;
   }
 };
 </script>
