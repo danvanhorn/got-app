@@ -1,7 +1,7 @@
 <template>
   <div class="table-container">
     <h2>Characters</h2>
-    <div class="loading" v-if="loading === false">
+    <div class="loading" v-if="loading === true">
       Loading...
     </div>
     <div v-else>
@@ -33,7 +33,6 @@ export default {
       .get("api/get/got_character")
       .then(function(response) {
         response.data.forEach(char => {
-          console.log(char);
           chars.push(new CharacterModel(
             char.id,
             char.fname,
