@@ -1,3 +1,10 @@
+TRUNCATE TABLE got_character;
+TRUNCATE TABLE got_house;
+TRUNCATE TABLE got_specialty;
+TRUNCATE TABLE got_alliance;
+TRUNCATE TABLE got_house_ally;
+TRUNCATE TABLE got_char_spec;
+
 /* characters*/
 
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Tywin','Lannister','The Old Lion','male',65,'Lannister of Casterly Rock');
@@ -25,7 +32,6 @@ INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Sa
 
 INSERT INTO got_character(fname, nickname, gender, age) VALUES ('Bronn','Bronn','male',18);
 INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Gregor','Clegaine','The Mountain','male',40);
-INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Sandor','Clegaine','The Hound','male',38);
 INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Sandor','Clegaine','The Hound','male',38);
 INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Brienne','Tarth','The Maid of Tarth','female',34);
 
@@ -65,18 +71,18 @@ INSERT INTO got_alliance(name) VALUES ('Rebellion');
 
 
 /* house alliance relationship */
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Lannister of Casterly Rock'), (SELECT id FROM got_alliance WHERE name = 'In Power'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Stark of Winterfell'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = "Baratheon of Storm's End"), (SELECT id FROM got_alliance WHERE name = 'In Power'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Arryn Of The Eyrie'), (SELECT id FROM got_alliance WHERE name = 'Neutral'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = "Targaryen of King's Landing"), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Tully of Riverrun'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Tyrell of Highgarden'), (SELECT id FROM got_alliance WHERE name = 'Neutral'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Greyjoy Of Pyke'), (SELECT id FROM got_alliance WHERE name = 'Neutral'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Nymeros Martell'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Bolton Of Dreadfort'), (SELECT id FROM got_alliance WHERE name = 'Evil'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Mormont Of Bear Island'), (SELECT id FROM got_alliance WHERE name = 'In Power'));
-INSERT INTO got_house ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Tarley Of Horn Hill'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Lannister of Casterly Rock'), (SELECT id FROM got_alliance WHERE name = 'In Power'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Stark of Winterfell'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = "Baratheon of Storm's End"), (SELECT id FROM got_alliance WHERE name = 'In Power'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Arryn Of The Eyrie'), (SELECT id FROM got_alliance WHERE name = 'Neutral'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = "Targaryen of King's Landing"), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Tully of Riverrun'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Tyrell of Highgarden'), (SELECT id FROM got_alliance WHERE name = 'Neutral'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Greyjoy Of Pyke'), (SELECT id FROM got_alliance WHERE name = 'Neutral'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Nymeros Martell'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Bolton Of Dreadfort'), (SELECT id FROM got_alliance WHERE name = 'Evil'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Mormont Of Bear Island'), (SELECT id FROM got_alliance WHERE name = 'In Power'));
+INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Tarley Of Horn Hill'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
 
 /* character specialty relationship */
 
@@ -97,18 +103,3 @@ INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_characte
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jon" AND lname = "Snow"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jon" AND lname = "Snow"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
 
-
-
-/*
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jamie" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Tyrion" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Politician"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Tyrion" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Espionage"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Cersei" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Espionage"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Cersei" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Politician"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Cersei" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Eddard" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Eddard" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Aria" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Aria" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Espionage"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Aria" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Magic"));
-*/
