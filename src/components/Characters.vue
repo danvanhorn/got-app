@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div class="loading" v-if="loading">
+  <div class="table-container">
+    <h2>Characters</h2>
+    <div class="loading" v-if="loading === false">
       Loading...
     </div>
-    <div>
-      <h2>Characters</h2>
-      <div class="table-container">
-        <row/>
-        <row v-for="char in characters" v-bind:key="char.id" v-bind:character="char"/>
-      </div>
+    <div v-else>
+      <row/>
+      <row v-for="char in characters" v-bind:key="char.id" v-bind:character="char"/>
     </div>
   </div>
 </template>

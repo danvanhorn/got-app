@@ -1,26 +1,39 @@
+TRUNCATE TABLE got_character;
+TRUNCATE TABLE got_house;
+TRUNCATE TABLE got_specialty;
+TRUNCATE TABLE got_alliance;
+TRUNCATE TABLE got_house_ally;
+TRUNCATE TABLE got_char_spec;
+
 /* characters*/
 
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Tywin','Lannister','The Old Lion','male',65,'Lannister of Casterly Rock');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Cersei','Lannister','Cersei the Lioness','female',34,'Lannister of Casterly Rock');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Jamie','Lannister','Kingslayer','male',34,'Lannister of Casterly Rock');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Tyrion','Lannister','The Imp','male',65,'Lannister of Casterly Rock');
-
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Eddard','Stark','Ned','male',49,'Stark of Winterfell');
-INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Aria','Stark','Ned','female',15,'Stark of Winterfell');
-INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Sansa','Stark','Ned','female',18,'Stark of Winterfell');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Aria','Stark','Arry','female',15,'Stark of Winterfell');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Sansa','Stark','Lady of Winterfell','female',18,'Stark of Winterfell');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Jon','Snow','King Crow','male',22,'Stark of Winterfell');
-
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Robert','Baratheon','The Usurper','male',47,"Baratheon Of Storm's End");
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Renley','Baratheon',"Lord of Storm's End",'male',30,"Baratheon Of Storm's End");
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Robert','Arryn','Sweetrobin','male',47,"Arryn Of The Eyrie");
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Lysa','Arryn','Lady Regent of the Vale','female',35,"Arryn Of The Eyrie");
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Daenerys','Targaryen','Khaleesi','female',22,"Targaryen of King's Landing");
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Edmure','Tully','Lord Paramount of the Trident', 'male',40,'Tully of Riverrun');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Mace','Tyrell','Lord Oaf','male',50,'Tyrell Of Highgarden');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Euron','Greyjoy','Son of the Sea Wind','male',35,'Greyjoy Of Pyke');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Theon','Greyjoy','Reek','male',23,'Greyjoy Of Pyke');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Doran','Martell','Lord of Sunspear','male',53,'Nymeros Martell');
 INSERT INTO got_character(fname, lname, gender, age, house) VALUES ('Roose','Bolton','male',45,'Bolton Of Dreadfort');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Maege','Mormont','The She-Bear','female',52,'Mormont Of Bear Island');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Randyll','Tarley','Justiciar','male',56,'Tarley Of Horn Hill');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Samwell','Tarley','Prince Pork-chop','male',22,'Tarley Of Horn Hill');
 
+INSERT INTO got_character(fname, nickname, gender, age) VALUES ('Bronn','Bronn','male',18);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Gregor','Clegaine','The Mountain','male',40);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Sandor','Clegaine','The Hound','male',38);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Brienne','Tarth','The Maid of Tarth','female',34);
 
 /* houses */
 
@@ -54,10 +67,15 @@ INSERT INTO got_alliance(name) VALUES ('Evil');
 INSERT INTO got_alliance(name) VALUES ('In Power');
 INSERT INTO got_alliance(name) VALUES ('Rebellion');
 
-/*people alliance relationship */
+/* character alliance relationship */
 
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="In Power"),(SELECT * FROM got_character WHERE fname="Gregor" AND lname="Clegaine"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="Neutral"),(SELECT * FROM got_character WHERE fname="Sandor" AND lname="Clegaine"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="Rebellion"),(SELECT * FROM got_character WHERE fname="Brienne" AND lname="Tarth"));
+INSERT INTO got_char_ally(ally_id, char_id) VALUES ((SELECT * FROM got_alliance WHERE name="In Power"),(SELECT * FROM got_character WHERE fname="Bronn"));
 
 /* house alliance relationship */
+
 INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Lannister of Casterly Rock'), (SELECT id FROM got_alliance WHERE name = 'In Power'));
 INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = 'Stark of Winterfell'), (SELECT id FROM got_alliance WHERE name = 'Rebellion'));
 INSERT INTO got_house_ally(house_id, ally_id) VALUES ((SELECT id FROM got_house where name  = "Baratheon of Storm's End"), (SELECT id FROM got_alliance WHERE name = 'In Power'));
@@ -89,19 +107,3 @@ INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_characte
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Sansa" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jon" AND lname = "Snow"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jon" AND lname = "Snow"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-
-
-
-/*
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jamie" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Tyrion" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Politician"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Tyrion" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Espionage"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Cersei" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Espionage"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Cersei" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Politician"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Cersei" AND lname = "Lannister"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Eddard" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Eddard" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Aria" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Aria" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Espionage"));
-INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Aria" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Magic"));
-*/

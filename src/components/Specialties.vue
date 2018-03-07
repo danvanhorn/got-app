@@ -1,7 +1,10 @@
 <template>
-  <div>
+  <div class="table-container">
     <h2>Specialties</h2>
-    <div class="table-container">
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+    <div v-else>
       <row/>
       <row v-for="spec in specialties" 
         :key="`${spec.specialty.id}-${spec.character.id}`"

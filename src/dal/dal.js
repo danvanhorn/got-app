@@ -69,7 +69,7 @@ class Dal {
     }
 
     async getSpecViewData() {
-        const { specialty, character, house, ally_house, ally_char } = this.tables;
+        const { specialty, character, char_spec } = this.tables;
         let specList = [];
         return new Promise((resolve, reject) => {
             this.conn.query(`SELECT s.id AS sid, specialty_type, c.id AS cid, fname, lname, nickname, gender, age, house FROM ${specialty} s 
