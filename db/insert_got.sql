@@ -4,23 +4,30 @@ INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('T
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Cersei','Lannister','Cersei the Lioness','female',34,'Lannister of Casterly Rock');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Jamie','Lannister','Kingslayer','male',34,'Lannister of Casterly Rock');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Tyrion','Lannister','The Imp','male',65,'Lannister of Casterly Rock');
-
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Eddard','Stark','Ned','male',49,'Stark of Winterfell');
-INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Aria','Stark','Ned','female',15,'Stark of Winterfell');
-INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Sansa','Stark','Ned','female',18,'Stark of Winterfell');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Aria','Stark','Arry','female',15,'Stark of Winterfell');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Sansa','Stark','Lady of Winterfell','female',18,'Stark of Winterfell');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Jon','Snow','King Crow','male',22,'Stark of Winterfell');
-
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Robert','Baratheon','The Usurper','male',47,"Baratheon Of Storm's End");
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Renley','Baratheon',"Lord of Storm's End",'male',30,"Baratheon Of Storm's End");
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Robert','Arryn','Sweetrobin','male',47,"Arryn Of The Eyrie");
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Lysa','Arryn','Lady Regent of the Vale','female',35,"Arryn Of The Eyrie");
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Daenerys','Targaryen','Khaleesi','female',22,"Targaryen of King's Landing");
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Edmure','Tully','Lord Paramount of the Trident', 'male',40,'Tully of Riverrun');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Mace','Tyrell','Lord Oaf','male',50,'Tyrell Of Highgarden');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Euron','Greyjoy','Son of the Sea Wind','male',35,'Greyjoy Of Pyke');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Theon','Greyjoy','Reek','male',23,'Greyjoy Of Pyke');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES ('Doran','Martell','Lord of Sunspear','male',53,'Nymeros Martell');
 INSERT INTO got_character(fname, lname, gender, age, house) VALUES ('Roose','Bolton','male',45,'Bolton Of Dreadfort');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Maege','Mormont','The She-Bear','female',52,'Mormont Of Bear Island');
 INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Randyll','Tarley','Justiciar','male',56,'Tarley Of Horn Hill');
+INSERT INTO got_character(fname, lname, nickname, gender, age, house) VALUES('Samwell','Tarley','Prince Pork-chop','male',22,'Tarley Of Horn Hill');
 
+INSERT INTO got_character(fname, nickname, gender, age) VALUES ('Bronn','Bronn','male',18);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Gregor','Clegaine','The Mountain','male',40);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Sandor','Clegaine','The Hound','male',38);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Sandor','Clegaine','The Hound','male',38);
+INSERT INTO got_character(fname, lname, nickname, gender, age) VALUES ('Brienne','Tarth','The Maid of Tarth','female',34);
 
 /* houses */
 
