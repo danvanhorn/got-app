@@ -32,7 +32,12 @@ app.get('/api/view/:table', (req, res) => {
       dal.getHouseViewData()
         .then(result => res.json(result))
         .catch(err => res.sendStatus(500))
-    } else if (table === specialty) {
+    } else if(table == alliance) {
+      dal.getAllyViewData()
+      .then(result => res.json(result))
+      .catch(err => res.sendStatus(500))
+    } 
+    else if (table === specialty) {
       dal.getSpecViewData()
         .then(result => res.json(result))
         .catch(err => res.sendStatus(500))
@@ -50,6 +55,3 @@ const port = 6969;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}!`);
 });
-
-
-

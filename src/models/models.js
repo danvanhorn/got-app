@@ -31,7 +31,7 @@ class SpecialtyModel {
 
 class AllianceModel {
     constructor(id, name) {
-        this.a_id = id;
+        this.id = id;
         this.name = name;
     }
 }
@@ -45,9 +45,9 @@ class SpecialtyViewModel {
 
 class AllianceViewModel {
     constructor(ally, house, char) {
-        this.alliance = new AllianceModel(ally.a_id, ally.name);
-        this.house = house ? new HouseModel(house.id, house.name, house.sigil, house.location, house.lord, house.castle, house.words) : undefined;
-        this.character = char ? new CharacterModel(char.id, char.fname, char.lname, char.nickname, char.gender, char.age, char.house) : undefined;
+        this.alliance = new AllianceModel(ally.id, ally.name);
+        this.house = house && house !== undefined ? new HouseModel(house.id, house.name, house.sigil, house.location, house.lord, house.castle, house.words) : undefined;
+        this.character = char && char !== undefined ? new CharacterModel(char.id, char.fname, char.lname, char.nickname, char.gender, char.age, char.house) : undefined;
     }
 }
 
