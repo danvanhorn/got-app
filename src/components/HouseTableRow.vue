@@ -10,7 +10,10 @@
         <div/>
     </div>
     <div v-else class='table-row'>
-      <div/>
+      <div v-if="edit" class="delete-button">
+        <button v-on:click="addHouse">Delete</button>
+      </div>
+      <div v-else/>
       <div class="table-item">{{house.name}}</div>
       <div class="table-item">{{house.sigil}}</div>
       <div class="table-item">{{house.location}}</div>
@@ -30,6 +33,9 @@ export default {
     house: {
       type: new HouseModel(),
       required: false
+    },
+    edit: {
+      type: Boolean
     }
   }
 };
@@ -46,5 +52,11 @@ export default {
   text-align: left;
   padding-top: 5px;
   padding-right: 5px;
+}
+
+.delete-button {
+  padding-top: 5px;
+  padding-right: 10px;
+  justify-self: right;
 }
 </style>
