@@ -5,11 +5,19 @@
       Loading...
     </div>
     <div v-else>
+      <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
       <row/>
+      <div v-if="edit">
+        <add-spec :edit="edit" 
+          :characters="characters"
+          :specialties="specTypes"
+          />
+      </div>
       <row v-for="spec in specialties" 
         :key="`${spec.specialty.id}-${spec.character.id}`"
         :specialty="spec.specialty" 
         :character="spec.character"
+        :edit="edit"
       />
     </div>
   </div>
@@ -17,6 +25,7 @@
 
 <script>
 import SpecTableRow from "./SpecTableRow.vue";
+import AddSpecialty from "./AddSpecialty.vue";
 import {
   SpecialtyViewModel,
   SpecialtyModel,
@@ -26,20 +35,21 @@ export default {
   name: "Specialties",
   data() {
     return {
+      edit: false,
       loading: false,
       specTypes: null,
-      specialties: null
+      specialties: null,
+      characters: null,
     };
   },
   components: {
-    row: SpecTableRow
-  },
-  computed: {
-    getKey(spec) {
-      return `${this.spec.specialty.id}-${this.spec.character.id}`;
-    }
+    row: SpecTableRow,
+    'add-spec': AddSpecialty
   },
   methods: {
+    toggleEdit() {
+      this.edit = !this.edit;
+    },
     fetchViewData() {
       let specList = [];
       window
@@ -70,6 +80,33 @@ export default {
         });
       this.specialties = specList;
     },
+    fetchCharacters() {
+      let chars = [];
+      window
+        .fetch("api/get/got_character")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(char => {
+            chars.push(
+              new CharacterModel(
+                char.id,
+                char.fname,
+                char.lname,
+                char.nickname,
+                char.gender,
+                char.age,
+                char.house
+              )
+            );
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.characters = chars;
+      },
     fetchSpecTypes() {
       let specTypesList = [];
       window
@@ -91,7 +128,9 @@ export default {
   created() {
     this.loading = true;
     this.fetchViewData();
+    this.fetchCharacters();
     this.fetchSpecTypes();
+    console.log(this.specialties, this.specTypes, this.characters);
     this.loading = false;
   }
 };
