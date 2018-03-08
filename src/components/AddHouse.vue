@@ -1,6 +1,8 @@
 <template>
   <div class="table-row">
-      <div/>
+      <div class="add-button">
+        <button v-on:click="addHouse">Add</button>
+      </div>
       <div class="table-item">
         <input v-model="house.name"/>
       </div>
@@ -26,9 +28,7 @@
       <div class="table-item">
         <input v-model="house.words"/>
       </div>
-      <div class="add-button">
-        <button v-on:click="addHouse">Add</button>
-      </div>
+      <div/>
   </div>
 </template>
 
@@ -71,7 +71,8 @@ export default {
 
 .add-button {
   padding-top: 5px;
-  justify-self: left;
+  padding-right: 10px;
+  justify-self: right;
 }
 
 input {

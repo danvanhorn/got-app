@@ -56,5 +56,6 @@ module.exports = {
     HouseModel,
     SpecialtyModel,
     SpecialtyViewModel,
-    AllianceModel
+    AllianceModel,
+    AllianceViewModel
 }
