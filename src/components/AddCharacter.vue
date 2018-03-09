@@ -1,56 +1,54 @@
 <template>
   <div class="table-row">
-      <div class="add-button">
-        <button v-on:click="addHouse">Add</button>
+      <div v-if="edit" class="add-button">
+        <button v-on:click="addCharacter">Add</button>
+      </div>
+      <div v-else/>
+      <div class="table-item">
+        <input v-model="character.fname"/>
       </div>
       <div class="table-item">
-        <input v-model="house.name"/>
+        <input v-model="character.nickname"/>
       </div>
       <div class="table-item">
-        <input v-model="house.sigil"/>
-      </div>
-      <div class="table-item">
-        <input v-model="house.location"/>
-      </div>
-      <div class="table-item">
-        <select v-bind="house.lord">
-          <option 
-            v-for="char in characters" 
-            :key="char.id" 
-            value="char">
-            {{getName(char)}}
-          </option>
+        <select v-bind="character.gender">
+          <option key="1" value="Male">Male</option>
+          <option key="2" value="Female">Female</option>
         </select>
       </div>
       <div class="table-item">
-        <input v-model="house.castle"/>
+        <input v-model="character.age"/>
       </div>
       <div class="table-item">
-        <input v-model="house.words"/>
+        <select v-bind="character.house">
+          <option 
+            v-for="house in houses" 
+            :key="house.id" 
+            value="house">
+            {{house.name}}
+          </option>
+        </select>
       </div>
       <div/>
   </div>
 </template>
 
 <script>
-import { HouseModel } from "../models/models";
+import { CharacterModel } from "../models/models";
 export default {
-  name: "AddHouse",
+  name: "AddCharacter",
   data() {
     return {
-      house: {
-        type: new HouseModel(),
+      character: {
+        type: new CharacterModel(),
         required: false
       }
     };
   },
-  props: ["characters"],
+  props: ["houses", "edit"],
   methods: {
-    addHouse() {
-      console.log(this.house);
-    },
-    getName(char) {
-      return `${char.fname} ${char.lname}`;
+    addCharacter() {
+      console.log(this.character);
     }
   }
 };
@@ -60,7 +58,7 @@ export default {
 <style scoped>
 .table-row {
   display: grid;
-  grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+  grid-template-columns: 12.5% 15% 15% 15% 15% 15% 12.5%;
 }
 
 .table-item {

@@ -1,15 +1,18 @@
 <template>
-    <div v-if="character === undefined" v-else class='table-row'>
+    <div v-if="character === undefined" class='table-row'>
       <div/>
-      <div><strong>Full Name</strong></div>
-      <div><strong>Nickname</strong></div>
-      <div><strong>Age</strong></div>
-      <div><strong>Gender</strong></div>
-      <div><strong>House</strong></div>
+      <div class="table-item"><strong>Full Name</strong></div>
+      <div class="table-item"><strong>Nickname</strong></div>
+      <div class="table-item"><strong>Age</strong></div>
+      <div class="table-item"><strong>Gender</strong></div>
+      <div class="table-item"><strong>House</strong></div>
       <div/>
     </div>
     <div v-else class='table-row'>
-      <div/>
+      <div v-if="edit" class="delete-button">
+        <button>Delete</button>
+      </div>
+      <div v-else/>
       <div class="table-item">{{fullName}}</div>
       <div class="table-item">{{character.nickname}}</div>
       <div class="table-item">{{character.age}}</div>
@@ -28,6 +31,9 @@ export default {
     character: {
       type: new CharacterModel(),
       required: false
+    },
+    edit: {
+      type: Boolean
     }
   },
   computed: {
@@ -52,5 +58,11 @@ export default {
   text-align: left;
   padding-top: 5px;
   padding-right: 5px;
+}
+
+.delete-button {
+  padding-top: 5px;
+  padding-right: 10px;
+  justify-self: right;
 }
 </style>

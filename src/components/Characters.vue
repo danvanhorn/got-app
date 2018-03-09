@@ -5,27 +5,38 @@
       Loading...
     </div>
     <div v-else>
+      <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
       <row/>
-      <row v-for="char in characters" v-bind:key="char.id" v-bind:character="char"/>
+      <div v-if="edit">
+        <add-char :edit="edit" :houses="houses"/>
+      </div>
+      <row v-for="char in characters" :key="char.id" :character="char" :edit="edit"/>
     </div>
   </div>
 </template>
 
 <script>
 import CharTableRow from "./CharTableRow.vue";
-import { CharacterModel } from "../models/models";
+import AddCharacter from "./AddCharacter.vue";
+import { CharacterModel, HouseModel } from "../models/models";
 export default {
   name: "Characters",
   data() {
     return {
+      edit: false,
       characters: null,
+      houses: null,
       loading: false
     };
   },
   components: {
-    row: CharTableRow
+    row: CharTableRow,
+    "add-char": AddCharacter
   },
   methods: {
+    toggleEdit() {
+      this.edit = !this.edit;
+    },
     fetchCharacters() {
       let chars = [];
       window
@@ -52,11 +63,39 @@ export default {
           console.log(error);
         });
       this.characters = chars;
+      },
+      fetchHouseViewModel() {
+      let houseArray = [];
+      window
+        .fetch("api/get/got_house")
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          data.forEach(house => {
+            houseArray.push(
+              new HouseModel(
+                house.id,
+                house.name,
+                house.sigil,
+                house.location,
+                house.lord,
+                house.castle,
+                house.words
+              )
+            );
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+        this.houses = houseArray;
     }
   },
   created() {
     this.loading = true;
     this.fetchCharacters();
+    this.fetchHouseViewModel();
     this.loading = false;
   }
 };

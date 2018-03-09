@@ -12,11 +12,7 @@
       <div v-if="edit">
         <add-house :characters="characters"/>
       </div>
-      <row v-for="house in houses" 
-        :key="house.id" 
-        :house="house" 
-        :edit="edit"
-      />
+      <row v-for="house in houses" :key="house.id" :house="house" :edit="edit"/>
     </div>
   </div>
 </template>

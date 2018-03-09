@@ -10,8 +10,10 @@
         <div/>
     </div>
     <div v-else class='table-row'>
-      <div v-if="!edit"/>
-      <div v-else class="delete-button"><button>Delete</button></div>
+      <div v-if="edit" class="delete-button">
+        <button v-on:click="addHouse">Delete</button>
+      </div>
+      <div v-else/>
       <div class="table-item">{{house.name}}</div>
       <div class="table-item">{{house.sigil}}</div>
       <div class="table-item">{{house.location}}</div>
@@ -53,8 +55,8 @@ export default {
 }
 
 .delete-button {
-  justify-self: right;
   padding-top: 5px;
-  margin-right: 10px;
+  padding-right: 10px;
+  justify-self: right;
 }
 </style>
