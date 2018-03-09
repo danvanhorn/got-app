@@ -26,11 +26,12 @@
 <script>
 import SpecTableRow from "./SpecTableRow.vue";
 import AddSpecialty from "./AddSpecialty.vue";
+import { fetchCharacterModels } from "../clients/CharacterClients";
 import {
-  SpecialtyViewModel,
-  SpecialtyModel,
-  CharacterModel
-} from "../models/models";
+  fetchSpecialtyModels,
+  fetchSpecialtyViewModels
+} from "../clients/SpecialtyClients";
+
 export default {
   name: "Specialties",
   data() {
@@ -39,98 +40,38 @@ export default {
       loading: false,
       specTypes: null,
       specialties: null,
-      characters: null,
+      characters: null
     };
   },
   components: {
     row: SpecTableRow,
-    'add-spec': AddSpecialty
+    "add-spec": AddSpecialty
   },
   methods: {
     toggleEdit() {
       this.edit = !this.edit;
     },
-    fetchViewData() {
-      let specList = [];
-      window
-        .fetch("api/view/got_specialty")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(s =>
-            specList.push(
-              new SpecialtyViewModel(
-                new SpecialtyModel(s.specialty.id, s.specialty.specialty_type),
-                new CharacterModel(
-                  s.character.id,
-                  s.character.fname,
-                  s.character.lname,
-                  s.character.nickname,
-                  s.character.gender,
-                  s.character.age,
-                  s.character.house
-                )
-              )
-            )
-          );
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.specialties = specList;
+    getSpecialtyModels() {
+      fetchSpecialtyModels()
+        .then(result => (this.specTypes = result))
+        .catch(err => console.log(err));
     },
-    fetchCharacters() {
-      let chars = [];
-      window
-        .fetch("api/get/got_character")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(char => {
-            chars.push(
-              new CharacterModel(
-                char.id,
-                char.fname,
-                char.lname,
-                char.nickname,
-                char.gender,
-                char.age,
-                char.house
-              )
-            );
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.characters = chars;
-      },
-    fetchSpecTypes() {
-      let specTypesList = [];
-      window
-        .fetch("api/get/got_specialty")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(t =>
-            specTypesList.push(new SpecialtyModel(t.id, t.specialty_type))
-          );
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.specTypes = specTypesList;
+    getCharacters() {
+      fetchCharacterModels()
+        .then(result => (this.characters = result))
+        .catch(err => console.log(err));
+    },
+    getSpecialtyViewModels() {
+      fetchSpecialtyViewModels()
+        .then(result => (this.specialties = result))
+        .catch(err => console.log(err));
     }
   },
   created() {
     this.loading = true;
-    this.fetchViewData();
-    this.fetchCharacters();
-    this.fetchSpecTypes();
-    console.log(this.specialties, this.specTypes, this.characters);
+    this.getSpecialtyViewModels();
+    this.getCharacters();
+    this.getSpecialtyModels();
     this.loading = false;
   }
 };
