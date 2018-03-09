@@ -25,7 +25,15 @@ class Dal {
         }
     }
 
-    async selectAll(queryTable) {
+    async insert() {
+        const { character, house, specialty, alliance } = this.tables;
+        return new Promise((resolve, reject) => {
+            let response = null;
+            this.conn,query(`INSERT`)
+        }) 
+    }
+
+    async select(queryTable) {
         const { character, house, specialty, alliance } = this.tables;
         return new Promise((resolve, reject) => {
             let list = [];

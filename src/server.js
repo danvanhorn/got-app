@@ -19,10 +19,27 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/api/get/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
-    dal.selectAll(table)
+    dal.select(table)
       .then(result => res.json(result))
       .catch(err => res.sendStatus(500))
   }
+})
+
+app.post('/api/add/:table/:model', (req, res) => {
+  const table = req.params.table;
+  const model = req.params.model;
+  if (dal.validateTable(table)) {
+    if (table === house) {
+      // add house
+    } else if (table === character) {
+      // add character
+    } else if (table === specialty) {
+      // add specialty
+    } else if (table === alliance){
+      // add alliance
+    }
+  }
+
 })
 
 app.get('/api/view/:table', (req, res) => {
