@@ -11,7 +11,7 @@ class Dal {
             alliance: 'got_alliance',
             char_spec: 'got_char_spec',
             ally_house: 'got_ally_house',
-            ally_char:  'got_ally_char'
+            ally_char: 'got_ally_char'
         }
     }
 
@@ -25,12 +25,31 @@ class Dal {
         }
     }
 
-    async insert() {
+    async insert(table, models) {
         const { character, house, specialty, alliance } = this.tables;
         return new Promise((resolve, reject) => {
+            console.log(models);
             let response = null;
-            this.conn,query(`INSERT`)
-        }) 
+            let query = "";
+            if (table === character) {
+                query = `INSERT INTO ${character}(fname, lname, nickname, gender, age, house) VALUES
+                        ("${models.fame}","${models.lname}","${models.nickname}","${models.gender}","${models.age}","${models.house.name}");`;
+            } else if (table === house) {
+                query = `INSERT INTO ${house}(name, sigil, location, lord_id, castle, words) VALUES
+                        ("${models.name}","${models.sigil}","${models.location}",${models.lord.id},"${models.castle}","${models.words}");`;
+            } else if (table === alliance) {
+                query = `INSERT INTO ${alliance}(name) VALUES
+                        (${models.name});`;
+            } else if (table === specialty) {
+                query = `INSERT INTO ${specialty}(specialty_type) VALUES
+                        (${models.specialty_type});`;
+            }
+            this.conn.query(query, (err, results, fields) => {
+                console.log(results)
+                if (err) reject(err);
+                else resolve(results);
+            })
+        })
     }
 
     async select(queryTable) {
@@ -67,7 +86,7 @@ class Dal {
                             LEFT JOIN ${character} c ON c.id = h.lord_id`, (err, results, fields) => {
                     if (err) reject(err);
                     else {
-                        houseList = results.map(res => 
+                        houseList = results.map(res =>
                             new models.HouseModel(res.id, res.name, res.sigil, res.location, res.lord, res.castle, res.castle)
                         );
                         resolve(houseList);
@@ -85,7 +104,7 @@ class Dal {
                             INNER JOIN ${character} c ON c.id = sc.char_id`, (err, results, fields) => {
                     if (err) reject(err);
                     else {
-                        specList = results.map(res => 
+                        specList = results.map(res =>
                             new models.SpecialtyViewModel(
                                 new models.SpecialtyModel(res.sid, res.specialty_type),
                                 new models.CharacterModel(res.cid, res.fname, res.lname, res.nickname, res.gender, res.age, res.house)

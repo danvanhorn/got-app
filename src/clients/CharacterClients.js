@@ -1,14 +1,26 @@
 import { CharacterModel } from "../models/models";
 
+export async function postCharacterModel(character){
+  return new Promise((resolve, reject) => {
+    console.log("sending ",character)
+    window.fetch("api/add/got_character/",{
+      method: "POST",
+      body: JSON.stringify(character),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(data => resolve(data))
+    .catch(err => reject(data))
+  })
+}
+
 export async function fetchCharacterModels(){
     return new Promise((resolve, reject) => {
         let characterArray = [];
         window
           .fetch("api/get/got_character")
-          .then(function(response) {
-            return response.json();
-          })
-          .then(function(data) {
+          .then(response => response.json())
+          .then(data => {
             data.forEach(char => {
               characterArray.push(
                 new CharacterModel(
@@ -24,8 +36,6 @@ export async function fetchCharacterModels(){
             });
             resolve(characterArray);
           })
-          .catch(function(error) {
-            reject(error);
-          });
+          .catch(error => reject(error));
     })
   } 

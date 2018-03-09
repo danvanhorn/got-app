@@ -25,14 +25,17 @@ app.get('/api/get/:table', (req, res) => {
   }
 })
 
-app.post('/api/add/:table/:model', (req, res) => {
+app.post('/api/add/:table', (req, res) => {
   const table = req.params.table;
-  const model = req.params.model;
   if (dal.validateTable(table)) {
     if (table === house) {
-      // add house
+      dal.insert(table, req.body)
+        .then(result => res.send(result))
+        .catch(err => res.sendStatus(500))
     } else if (table === character) {
-      // add character
+      dal.insert(table, req.body)
+        .then(result => res.send(result))
+        .catch(err => res.sendStatus(500))
     } else if (table === specialty) {
       // add specialty
     } else if (table === alliance){

@@ -62,7 +62,7 @@ export default {
         this.age,
         this.house
       );
-      console.log(char);
+      this.$emit('add-char', char);
     }
   }
 };

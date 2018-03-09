@@ -5,13 +5,13 @@
       </div>
       <div v-else/>
       <div class="table-item">
-        <select v-bind="specialty.specialty">
-          <option v-for="s in specialties" :key="s.id" value="s">{{s.specialty_type}}</option>
+        <select v-model="specialty">
+          <option v-for="s in specialties" :key="s.id" :value="s">{{s.specialty_type}}</option>
         </select>
       </div>
       <div class="table-item">
-        <select v-bind="specialty.character">
-          <option v-for="c in characters" :key="c.id" value="c">{{`${c.fname} ${c.lname}`}}</option>
+        <select v-model="character">
+          <option v-for="c in characters" :key="c.id" :value="c">{{`${c.fname} ${c.lname}`}}</option>
         </select>
       </div>
       <div/>
@@ -24,20 +24,14 @@ export default {
   name: "AddSpecialty",
   data() {
     return {
-      specialty: {
-        type: new SpecialtyModel(),
-        required: false
-      },
-      character: {
-        type: new CharacterModel(),
-        required: false
-      }
+      specialty: null,
+      character: null,
     };
   },
   props: ["characters", "specialties", "edit"],
   methods: {
     addSpecialty() {
-      console.log(this.specialty);
+      console.log(this.specialty, this.character);
     }
   }
 };

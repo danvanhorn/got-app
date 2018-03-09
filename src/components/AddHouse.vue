@@ -49,14 +49,16 @@ export default {
   props: ["characters"],
   methods: {
     addHouse() {
-      const house = new HouseModel(0,
-      this.name,
-      this.sigil,
-      this.location,
-      this.lord,
-      this.castle,
-      this.words);
-      console.log(house);
+      const house = new HouseModel(
+        0,
+        this.name,
+        this.sigil,
+        this.location,
+        this.lord,
+        this.castle,
+        this.words
+      );
+      this.$emit('add-house', house);
     },
     getName(char) {
       return `${char.fname} ${char.lname}`;
