@@ -37,11 +37,16 @@ app.post('/api/add/:table', (req, res) => {
         .then(result => res.send(result))
         .catch(err => res.sendStatus(500))
     } else if (table === specialty) {
-      // add specialty
+      dal.insert(table, req.body)
+        .then(result => res.send(result))
+        .catch(err => res.sendStatus(500))
     } else if (table === alliance){
       // add alliance
     }
   }
+})
+
+app.post('/api/add-rel/:table', (res, req) => {
 
 })
 

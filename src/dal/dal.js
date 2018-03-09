@@ -38,14 +38,12 @@ class Dal {
                 query = `INSERT INTO ${house}(name, sigil, location, lord_id, castle, words) VALUES
                         ("${models.name}","${models.sigil}","${models.location}",${models.lord.id},"${models.castle}","${models.words}");`;
             } else if (table === alliance) {
-                query = `INSERT INTO ${alliance}(name) VALUES
-                        (${models.name});`;
+                query = `INSERT INTO ${alliance}(name) VALUES ("${models.name}");`;
             } else if (table === specialty) {
-                query = `INSERT INTO ${specialty}(specialty_type) VALUES
-                        (${models.specialty_type});`;
+                query = `INSERT INTO ${specialty}(specialty_type) VALUES ("${models.specialty_type}");`;
             }
             this.conn.query(query, (err, results, fields) => {
-                console.log(results)
+                console.log(results, fields, err)
                 if (err) reject(err);
                 else resolve(results);
             })

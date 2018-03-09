@@ -1,5 +1,31 @@
 import { SpecialtyModel, SpecialtyViewModel, CharacterModel } from "../models/models";
 
+export async function postSpecialtyModel(specialty){
+  return new Promise((resolve, reject) => {
+    window.fetch("api/add/got_specialty",{
+      method: "POST",
+      body: JSON.stringify({specialty_type: specialty}),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(data => resolve(data))
+    .catch(err => reject(data))
+  })
+}
+
+export async function postSpecialtyViewModel(specialty){
+  return new Promise((resolve, reject) => {
+    window.fetch("api/add-rel/got_specialty",{
+      method: "POST",
+      body: JSON.stringify(specialty),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(data => resolve(data))
+    .catch(err => reject(data))
+  })
+}
+
 export async function fetchSpecialtyViewModels() {
   return new Promise((resolve, reject) => {
     let specList = [];

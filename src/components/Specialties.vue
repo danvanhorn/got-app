@@ -5,13 +5,19 @@
       Loading...
     </div>
     <div v-else>
-      <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
+      <button v-on:click="toggleEdit">{{edit ? 'Cancel Edit': 'Edit'}}</button>
+      <button v-on:click="toggleAdd">{{add ? 'Cancel': 'Add New'}}</button>
+      <button v-on:click="addSpecialty" v-show="add">Add</button>
+      <div class="add" v-if="add">
+        <label for="s-name">Specialty Type</label>
+        <input id="s-name" v-model="specName"/>
+      </div>
       <row/>
       <div v-if="edit">
         <add-spec :edit="edit" 
           :characters="characters"
           :specialties="specTypes"
-          />
+          @add-spec-rel="addSpecialtyRelation"/>
       </div>
       <row v-for="spec in specialties" 
         :key="`${spec.specialty.id}-${spec.character.id}`"
@@ -29,18 +35,22 @@ import AddSpecialty from "./AddSpecialty.vue";
 import { fetchCharacterModels } from "../clients/CharacterClients";
 import {
   fetchSpecialtyModels,
-  fetchSpecialtyViewModels
+  fetchSpecialtyViewModels,
+  postSpecialtyModel,
+  postSpecialtyViewModel
 } from "../clients/SpecialtyClients";
 
 export default {
   name: "Specialties",
   data() {
     return {
+      add: false,
       edit: false,
       loading: false,
       specTypes: null,
       specialties: null,
-      characters: null
+      characters: null,
+      specName: ""
     };
   },
   components: {
@@ -50,6 +60,21 @@ export default {
   methods: {
     toggleEdit() {
       this.edit = !this.edit;
+    },
+    toggleAdd() {
+      this.add = !this.add;
+    },
+    addSpecialty(spec_rel){
+      postSpecialtyModel(spec_rel)
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+      this.getSpecialtyModels();
+    },
+    addSpecialtyRelation(){
+      postSpecialtyViewModel(this.specName)
+        .then(result => console.log(result))
+        .catch(err => console.log(err));
+      this.getSpecialtyViewModels();
     },
     getSpecialtyModels() {
       fetchSpecialtyModels()
@@ -78,6 +103,36 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 
+.add{
+  padding: 10px;
+}
+
+input {
+  background-color: #313740;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 1px solid #7d828c;
+  outline: none;
+  color: #b6bdcc;
+}
+
+select {
+  border: 0;
+  background-color: #313740;
+  border-bottom: 1px solid #7d828c;
+  outline: none;
+  color: #b6bdcc;
+}
+
+select:hover,
+input:hover {
+  border-bottom: 1px solid #d78857;
+}
+select:focus,
+input:focus {
+  border-bottom: 2px solid #d78857;
+}
 </style>

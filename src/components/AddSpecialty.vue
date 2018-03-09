@@ -31,7 +31,9 @@ export default {
   props: ["characters", "specialties", "edit"],
   methods: {
     addSpecialty() {
-      console.log(this.specialty, this.character);
+      const spec = new SpecialtyViewModel(this.specialty, this.character);
+      console.log(spec);
+      this.$emit('add-spec-rel', spec);
     }
   }
 };
@@ -56,30 +58,5 @@ export default {
   justify-self: right;
 }
 
-input {
-  background-color: #313740;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 1px solid #7d828c;
-  outline: none;
-  color: #b6bdcc;
-}
 
-select {
-  border: 0;
-  background-color: #313740;
-  border-bottom: 1px solid #7d828c;
-  outline: none;
-  color: #b6bdcc;
-}
-
-select:hover,
-input:hover {
-  border-bottom: 1px solid #d78857;
-}
-select:focus,
-input:focus {
-  border-bottom: 2px solid #d78857;
-}
 </style>

@@ -18,7 +18,7 @@ export async function fetchHouseViewModels(){
         let houseArray = [];
         window.fetch("api/view/got_house")
         .then(response => response.json())
-        .then((data) => {
+        .then(data => {
           data.forEach(house => {
             houseArray.push(
               new HouseModel(
@@ -34,9 +34,7 @@ export async function fetchHouseViewModels(){
           });
           resolve(houseArray); 
         })
-        .catch(function(error) {
-          reject(error);
-        });
+        .catch(error => reject(error));
                
     })
 } 
