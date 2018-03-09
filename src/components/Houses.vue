@@ -20,7 +20,8 @@
 <script>
 import HouseTableRow from "./HouseTableRow.vue";
 import AddHouse from "./AddHouse";
-import { HouseModel, CharacterModel } from "../models/models";
+import { fetchHouseViewModels } from "../clients/HouseClients";
+import { fetchCharacterModels } from "../clients/CharacterClients";
 export default {
   name: "Houses",
   data() {
@@ -38,66 +39,21 @@ export default {
     toggleEdit() {
       this.edit = !this.edit;
     },
-    fetchHouseViewModel() {
-      let houseArray = [];
-      window
-        .fetch("api/view/got_house")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(house => {
-            houseArray.push(
-              new HouseModel(
-                house.id,
-                house.name,
-                house.sigil,
-                house.location,
-                house.lord,
-                house.castle,
-                house.words
-              )
-            );
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-
-      this.houses = houseArray;
+    getHouses() {
+      fetchHouseViewModels()
+        .then(result => (this.houses = result))
+        .catch(err => console.log(err));
     },
-    fetchCharacters() {
-      let characterArray = [];
-      window
-        .fetch("api/get/got_character")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(char => {
-            characterArray.push(
-              new CharacterModel(
-                char.id,
-                char.fname,
-                char.lname,
-                char.nickname,
-                char.gender,
-                char.age,
-                char.house
-              )
-            );
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.characters = characterArray;
+    getCharacters() {
+      fetchCharacterModels()
+        .then(result => (this.characters = result))
+        .catch(err => console.log(err));
     }
   },
   created() {
     this.loading = true;
-    this.fetchHouseViewModel();
-    this.fetchCharacters();
+    this.getHouses();
+    this.getCharacters();
     this.loading = false;
   }
 };
