@@ -43,7 +43,7 @@ class Dal {
             let query = "";
             if (table === character) {
                 query = `INSERT INTO ${character}(fname, lname, nickname, gender, age, house) VALUES
-                        ("${models.fame}","${models.lname}","${models.nickname}","${models.gender}","${models.age}","${models.house.name}");`;
+                        ("${models.fname}","${models.lname}","${models.nickname}","${models.gender}","${models.age}","${models.house.name}");`;
             } else if (table === house) {
                 query = `INSERT INTO ${house}(name, sigil, location, lord_id, castle, words) VALUES
                         ("${models.name}","${models.sigil}","${models.location}",${models.lord.id},"${models.castle}","${models.words}");`;

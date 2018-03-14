@@ -52,7 +52,7 @@ export default {
   props: ["houses", "edit"],
   methods: {
     addCharacter() {
-      const name = this.fullName.trim().split(" ");
+      const name = this.fullName.split(' ');
       const char = new CharacterModel(
         0,
         name[0],
