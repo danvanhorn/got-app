@@ -8,7 +8,7 @@
       <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
       <row/>
       <div v-if="edit">
-        <add-char :edit="edit" :houses="houses"/>
+        <add-char :edit="edit" :houses="houses" v-on:add-char="addCharacter"/>
       </div>
       <row v-for="char in characters" :key="char.id" :character="char" :edit="edit"/>
     </div>
@@ -19,7 +19,7 @@
 import CharTableRow from "./CharTableRow.vue";
 import AddCharacter from "./AddCharacter.vue";
 import { fetchHouseModels } from "../clients/HouseClients";
-import { fetchCharacterModels } from "../clients/CharacterClients";
+import { fetchCharacterModels, postCharacterModel } from "../clients/CharacterClients";
 export default {
   name: "Characters",
   data() {
@@ -38,14 +38,20 @@ export default {
     toggleEdit() {
       this.edit = !this.edit;
     },
+    addCharacter(character){
+      postCharacterModel(character)
+        .then(data => console.log(data))
+        .catch(err => console.err(err))
+      this.getCharacters();
+    },
     getHouses() {
       fetchHouseModels()
-        .then(result => (this.houses = result))
+        .then(result => this.houses = result)
         .catch(err => console.log(err));
     },
     getCharacters() {
       fetchCharacterModels()
-        .then(result => (this.characters = result))
+        .then(result => this.characters = result)
         .catch(err => console.log(err));
     }
   },

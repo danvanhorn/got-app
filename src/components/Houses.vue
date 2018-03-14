@@ -10,7 +10,7 @@
       </button>
       <row/>
       <div v-if="edit">
-        <add-house :characters="characters"/>
+        <add-house :characters="characters" @add-house="addHouse"/>
       </div>
       <row v-for="house in houses" :key="house.id" :house="house" :edit="edit"/>
     </div>
@@ -20,7 +20,7 @@
 <script>
 import HouseTableRow from "./HouseTableRow.vue";
 import AddHouse from "./AddHouse";
-import { fetchHouseViewModels } from "../clients/HouseClients";
+import { fetchHouseViewModels, postHouseModel } from "../clients/HouseClients";
 import { fetchCharacterModels } from "../clients/CharacterClients";
 export default {
   name: "Houses",
@@ -39,15 +39,22 @@ export default {
     toggleEdit() {
       this.edit = !this.edit;
     },
+    addHouse(house){
+      postHouseModel(house)
+        .then(result => console.log(result))
+        .catch(err => console.error(err));
+      this.getHouses();
+
+    },
     getHouses() {
       fetchHouseViewModels()
-        .then(result => (this.houses = result))
-        .catch(err => console.log(err));
+        .then(result => this.houses = result)
+        .catch(err => console.error(err));
     },
     getCharacters() {
       fetchCharacterModels()
-        .then(result => (this.characters = result))
-        .catch(err => console.log(err));
+        .then(result => this.characters = result)
+        .catch(err => console.error(err));
     }
   },
   created() {

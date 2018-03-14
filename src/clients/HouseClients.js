@@ -1,11 +1,24 @@
 import { HouseModel } from "../models/models";
 
+export async function postHouseModel(house){
+  return new Promise((resolve, reject) => {
+    window.fetch("api/add/got_house",{
+      method: "POST",
+      body: JSON.stringify(house),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(data => resolve(data))
+    .catch(err => reject(data))
+  })
+}
+
 export async function fetchHouseViewModels(){
     return new Promise((resolve, reject) => {
         let houseArray = [];
         window.fetch("api/view/got_house")
         .then(response => response.json())
-        .then((data) => {
+        .then(data => {
           data.forEach(house => {
             houseArray.push(
               new HouseModel(
@@ -21,9 +34,7 @@ export async function fetchHouseViewModels(){
           });
           resolve(houseArray); 
         })
-        .catch(function(error) {
-          reject(error);
-        });
+        .catch(error => reject(error));
                
     })
 } 
@@ -49,9 +60,7 @@ export async function fetchHouseModels(){
         });
         resolve(houseArray); 
       })
-      .catch(function(error) {
-        reject(error);
-      });
+      .catch(error => reject(error));
              
   })
 } 

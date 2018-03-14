@@ -5,13 +5,13 @@
       </div>
       <div v-else/>
       <div class="table-item">
-        <select v-bind="specialty.specialty">
-          <option v-for="s in specialties" :key="s.id" value="s">{{s.specialty_type}}</option>
+        <select v-model="specialty">
+          <option v-for="s in specialties" :key="s.id" :value="s">{{s.specialty_type}}</option>
         </select>
       </div>
       <div class="table-item">
-        <select v-bind="specialty.character">
-          <option v-for="c in characters" :key="c.id" value="c">{{`${c.fname} ${c.lname}`}}</option>
+        <select v-model="character">
+          <option v-for="c in characters" :key="c.id" :value="c">{{`${c.fname} ${c.lname}`}}</option>
         </select>
       </div>
       <div/>
@@ -24,20 +24,16 @@ export default {
   name: "AddSpecialty",
   data() {
     return {
-      specialty: {
-        type: new SpecialtyModel(),
-        required: false
-      },
-      character: {
-        type: new CharacterModel(),
-        required: false
-      }
+      specialty: null,
+      character: null,
     };
   },
   props: ["characters", "specialties", "edit"],
   methods: {
     addSpecialty() {
-      console.log(this.specialty);
+      const spec = new SpecialtyViewModel(this.specialty, this.character);
+      console.log(spec);
+      this.$emit('add-spec-rel', spec);
     }
   }
 };
@@ -62,30 +58,5 @@ export default {
   justify-self: right;
 }
 
-input {
-  background-color: #313740;
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 1px solid #7d828c;
-  outline: none;
-  color: #b6bdcc;
-}
 
-select {
-  border: 0;
-  background-color: #313740;
-  border-bottom: 1px solid #7d828c;
-  outline: none;
-  color: #b6bdcc;
-}
-
-select:hover,
-input:hover {
-  border-bottom: 1px solid #d78857;
-}
-select:focus,
-input:focus {
-  border-bottom: 2px solid #d78857;
-}
 </style>

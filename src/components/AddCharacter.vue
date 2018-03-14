@@ -5,26 +5,28 @@
       </div>
       <div v-else/>
       <div class="table-item">
-        <input v-model="character.fname"/>
+        <input v-model="fullName"/>
       </div>
       <div class="table-item">
-        <input v-model="character.nickname"/>
+        <input v-model="nickname"/>
       </div>
       <div class="table-item">
-        <select v-bind="character.gender">
+        <select v-model="age">
+          <option v-for="age in ageMax" :key="age" :value="age">{{age}}</option>
+        </select>
+      </div>
+      <div class="table-item">
+        <select v-model="gender">
           <option key="1" value="Male">Male</option>
           <option key="2" value="Female">Female</option>
         </select>
       </div>
       <div class="table-item">
-        <input v-model="character.age"/>
-      </div>
-      <div class="table-item">
-        <select v-bind="character.house">
+        <select v-model="house">
           <option 
             v-for="house in houses" 
             :key="house.id" 
-            value="house">
+            :value="house">
             {{house.name}}
           </option>
         </select>
@@ -39,16 +41,28 @@ export default {
   name: "AddCharacter",
   data() {
     return {
-      character: {
-        type: new CharacterModel(),
-        required: false
-      }
+      fullName: "",
+      nickname: "",
+      age: 1,
+      gender: "",
+      house: "",
+      ageMax: 100
     };
   },
   props: ["houses", "edit"],
   methods: {
     addCharacter() {
-      console.log(this.character);
+      const name = this.fullName.split(' ');
+      const char = new CharacterModel(
+        0,
+        name[0],
+        name[1],
+        this.nickname,
+        this.gender,
+        this.age,
+        this.house
+      );
+      this.$emit('add-char', char);
     }
   }
 };

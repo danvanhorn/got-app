@@ -4,29 +4,29 @@
         <button v-on:click="addHouse">Add</button>
       </div>
       <div class="table-item">
-        <input v-model="house.name"/>
+        <input v-model="name"/>
       </div>
       <div class="table-item">
-        <input v-model="house.sigil"/>
+        <input v-model="sigil"/>
       </div>
       <div class="table-item">
-        <input v-model="house.location"/>
+        <input v-model="location"/>
       </div>
       <div class="table-item">
-        <select v-bind="house.lord">
+        <select v-model="lord">
           <option 
             v-for="char in characters" 
             :key="char.id" 
-            value="char">
+            :value="char">
             {{getName(char)}}
           </option>
         </select>
       </div>
       <div class="table-item">
-        <input v-model="house.castle"/>
+        <input v-model="castle"/>
       </div>
       <div class="table-item">
-        <input v-model="house.words"/>
+        <input v-model="words"/>
       </div>
       <div/>
   </div>
@@ -38,16 +38,27 @@ export default {
   name: "AddHouse",
   data() {
     return {
-      house: {
-        type: new HouseModel(),
-        required: false
-      }
+      name: "",
+      sigil: "",
+      location: "",
+      lord: "",
+      castle: "",
+      words: ""
     };
   },
   props: ["characters"],
   methods: {
     addHouse() {
-      console.log(this.house);
+      const house = new HouseModel(
+        0,
+        this.name,
+        this.sigil,
+        this.location,
+        this.lord,
+        this.castle,
+        this.words
+      );
+      this.$emit('add-house', house);
     },
     getName(char) {
       return `${char.fname} ${char.lname}`;
