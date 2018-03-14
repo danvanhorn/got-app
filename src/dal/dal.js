@@ -16,16 +16,63 @@ class Dal {
     }
 
     validateTable(table) {
-        const { character, house, specialty, alliance } = this.tables;
-        console.log(table)
-        if (table === character || table === house || table === specialty || table === alliance) {
+        const { character,
+            house,
+            specialty,
+            alliance,
+            char_spec,
+            ally_char,
+            ally_spec } = this.tables;
+        if (table === character ||
+            table === house ||
+            table === specialty ||
+            table === alliance ||
+            table === char_spec ||
+            table === ally_house ||
+            table === ally_char) {
             return true;
         } else {
             return false;
         }
     }
 
-    async selectAll(queryTable) {
+    async insert(table, models) {
+        const { character, house, specialty, alliance } = this.tables;
+        return new Promise((resolve, reject) => {
+            let response = null;
+            let query = "";
+            if (table === character) {
+                query = `INSERT INTO ${character}(fname, lname, nickname, gender, age, house) VALUES
+                        ("${models.fname}","${models.lname}","${models.nickname}","${models.gender}","${models.age}","${models.house.name}");`;
+            } else if (table === house) {
+                query = `INSERT INTO ${house}(name, sigil, location, lord_id, castle, words) VALUES
+                        ("${models.name}","${models.sigil}","${models.location}",${models.lord.id},"${models.castle}","${models.words}");`;
+            } else if (table === alliance) {
+                query = `INSERT INTO ${alliance}(name) VALUES ("${models.name}");`;
+            } else if (table === specialty) {
+                query = `INSERT INTO ${specialty}(specialty_type) VALUES ("${models.specialty_type}");`;
+            }
+            this.conn.query(query, (err, results, fields) => {
+                if (err) reject(err);
+                else resolve(results);
+            })
+        })
+    }
+
+    async insertSpecialtyRelationship(specialtyVM) {
+        const { char_spec } = this.tables;
+        const { specialty, character } = specialtyVM;
+        const query = `INSERT INTO ${char_spec}(char_id, spec_id) VALUES (${character.id},${specialty.id});`;
+        return new Promise((resolve, reject) => {
+            let response = null;
+            this.conn.query(query, (err, results, fields) => {
+                if (err) reject(err);
+                else resolve(results);
+            })
+        });
+    }
+
+    async select(queryTable) {
         const { character, house, specialty, alliance } = this.tables;
         return new Promise((resolve, reject) => {
             let list = [];
@@ -89,11 +136,9 @@ class Dal {
     }
 
     async getAllyViewData() {
-        console.log("welcome");
         const { alliance, character, house, ally_house, ally_char } = this.tables;
         let specList = [];
         return new Promise((resolve, reject) => {
-            console.log("OK FUCK");
             this.conn.query(`SELECT h.name AS hname, a.name AS aname, location, ally_id, sigil, lord_id, castle, words, house_id FROM ${alliance} a
                             INNER JOIN ${ally_house} ac ON a.id = ac.ally_id
                             INNER JOIN ${house} h ON h.id = ac.house_id`, (err, results, fields) => {
@@ -103,7 +148,6 @@ class Dal {
                       reject(err);
                     }
                     else {
-                      console.log("FUCK AGAIN");
                         specList = results.map(res => {
                             console.log(res);
                             return new models.AllianceViewModel(
@@ -118,11 +162,9 @@ class Dal {
                             INNER JOIN ${ally_char} ac ON a.id = ac.ally_id
                             INNER JOIN ${character} c ON c.id = ac.char_id`, (err, results, fields) => {
                     if (err){
-                      console.log(err);
                        reject(err);
                      }
                     else {
-                      console.log("PUSHING...");
                         specList.push(results.map(res => {
                             console.log(res);
                             return new models.AllianceViewModel(
@@ -132,7 +174,6 @@ class Dal {
                             );
                         }));
                     }
-                    console.log("FUCK!!!:" + specList);
                     resolve(specList);
                 })
         })

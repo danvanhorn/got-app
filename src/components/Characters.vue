@@ -5,58 +5,60 @@
       Loading...
     </div>
     <div v-else>
+      <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
       <row/>
-      <row v-for="char in characters" v-bind:key="char.id" v-bind:character="char"/>
+      <div v-if="edit">
+        <add-char :edit="edit" :houses="houses" v-on:add-char="addCharacter"/>
+      </div>
+      <row v-for="char in characters" :key="char.id" :character="char" :edit="edit"/>
     </div>
   </div>
 </template>
 
 <script>
 import CharTableRow from "./CharTableRow.vue";
-import { CharacterModel } from "../models/models";
+import AddCharacter from "./AddCharacter.vue";
+import { fetchHouseModels } from "../clients/HouseClients";
+import { fetchCharacterModels, postCharacterModel } from "../clients/CharacterClients";
 export default {
   name: "Characters",
   data() {
     return {
+      edit: false,
       characters: null,
+      houses: null,
       loading: false
     };
   },
   components: {
-    row: CharTableRow
+    row: CharTableRow,
+    "add-char": AddCharacter
   },
   methods: {
-    fetchCharacters() {
-      let chars = [];
-      window
-        .fetch("api/get/got_character")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(char => {
-            chars.push(
-              new CharacterModel(
-                char.id,
-                char.fname,
-                char.lname,
-                char.nickname,
-                char.gender,
-                char.age,
-                char.house
-              )
-            );
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.characters = chars;
+    toggleEdit() {
+      this.edit = !this.edit;
+    },
+    addCharacter(character){
+      postCharacterModel(character)
+        .then(data => console.log(data))
+        .catch(err => console.err(err))
+      this.getCharacters();
+    },
+    getHouses() {
+      fetchHouseModels()
+        .then(result => this.houses = result)
+        .catch(err => console.log(err));
+    },
+    getCharacters() {
+      fetchCharacterModels()
+        .then(result => this.characters = result)
+        .catch(err => console.log(err));
     }
   },
   created() {
     this.loading = true;
-    this.fetchCharacters();
+    this.getCharacters();
+    this.getHouses();
     this.loading = false;
   }
 };

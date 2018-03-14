@@ -29,7 +29,6 @@ import { HouseModel } from "../models/models";
 export default {
   name: "HouseTableRow",
   props: {
-    // we will probably turn the required attribute to true when we have data
     house: {
       type: new HouseModel(),
       required: false
@@ -41,7 +40,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .table-row {
   display: grid;

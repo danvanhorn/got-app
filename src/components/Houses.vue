@@ -5,10 +5,12 @@
         Loading...
     </div>
     <div v-else>
-      <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
+      <button v-on:click="toggleEdit">
+        {{edit ? 'Cancel ': 'Edit'}}
+      </button>
       <row/>
       <div v-if="edit">
-        <add-house :characters="characters"/>
+        <add-house :characters="characters" @add-house="addHouse"/>
       </div>
       <row v-for="house in houses" :key="house.id" :house="house" :edit="edit"/>
     </div>
@@ -18,7 +20,8 @@
 <script>
 import HouseTableRow from "./HouseTableRow.vue";
 import AddHouse from "./AddHouse";
-import { HouseModel, CharacterModel } from "../models/models";
+import { fetchHouseViewModels, postHouseModel } from "../clients/HouseClients";
+import { fetchCharacterModels } from "../clients/CharacterClients";
 export default {
   name: "Houses",
   data() {
@@ -36,66 +39,28 @@ export default {
     toggleEdit() {
       this.edit = !this.edit;
     },
-    fetchHouseViewModel() {
-      let houseArray = [];
-      window
-        .fetch("api/view/got_house")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(house => {
-            houseArray.push(
-              new HouseModel(
-                house.id,
-                house.name,
-                house.sigil,
-                house.location,
-                house.lord,
-                house.castle,
-                house.words
-              )
-            );
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
+    addHouse(house){
+      postHouseModel(house)
+        .then(result => console.log(result))
+        .catch(err => console.error(err));
+      this.getHouses();
 
-      this.houses = houseArray;
     },
-    fetchCharacters() {
-      let characterArray = [];
-      window
-        .fetch("api/get/got_character")
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          data.forEach(char => {
-            characterArray.push(
-              new CharacterModel(
-                char.id,
-                char.fname,
-                char.lname,
-                char.nickname,
-                char.gender,
-                char.age,
-                char.house
-              )
-            );
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-      this.characters = characterArray;
+    getHouses() {
+      fetchHouseViewModels()
+        .then(result => this.houses = result)
+        .catch(err => console.error(err));
+    },
+    getCharacters() {
+      fetchCharacterModels()
+        .then(result => this.characters = result)
+        .catch(err => console.error(err));
     }
   },
   created() {
     this.loading = true;
-    this.fetchHouseViewModel();
-    this.fetchCharacters();
+    this.getHouses();
+    this.getCharacters();
     this.loading = false;
   }
 };
