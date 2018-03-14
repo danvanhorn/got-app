@@ -13,9 +13,9 @@ export async function postSpecialtyModel(specialty){
   })
 }
 
-export async function postSpecialtyViewModel(specialty){
+export async function postSpecialtyViewModel(specialty, character){
   return new Promise((resolve, reject) => {
-    window.fetch("api/add-rel/got_specialty",{
+    window.fetch("api/rel/got_char_spec",{
       method: "POST",
       body: JSON.stringify(specialty),
       headers: new Headers({

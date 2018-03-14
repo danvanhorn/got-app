@@ -64,14 +64,14 @@ export default {
     toggleAdd() {
       this.add = !this.add;
     },
-    addSpecialty(spec_rel){
-      postSpecialtyModel(spec_rel)
+    addSpecialty(){
+      postSpecialtyModel(this.specName)
         .then(result => console.log(result))
         .catch(err => console.log(err));
       this.getSpecialtyModels();
     },
-    addSpecialtyRelation(){
-      postSpecialtyViewModel(this.specName)
+    addSpecialtyRelation(specialty){
+      postSpecialtyViewModel(specialty)
         .then(result => console.log(result))
         .catch(err => console.log(err));
       this.getSpecialtyViewModels();

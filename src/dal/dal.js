@@ -16,9 +16,20 @@ class Dal {
     }
 
     validateTable(table) {
-        const { character, house, specialty, alliance } = this.tables;
-        console.log(table)
-        if (table === character || table === house || table === specialty || table === alliance) {
+        const { character,
+            house,
+            specialty,
+            alliance,
+            char_spec,
+            ally_char,
+            ally_spec } = this.tables;
+        if (table === character ||
+            table === house ||
+            table === specialty ||
+            table === alliance ||
+            table === char_spec ||
+            table === ally_house ||
+            table === ally_char) {
             return true;
         } else {
             return false;
@@ -28,7 +39,6 @@ class Dal {
     async insert(table, models) {
         const { character, house, specialty, alliance } = this.tables;
         return new Promise((resolve, reject) => {
-            console.log(models);
             let response = null;
             let query = "";
             if (table === character) {
@@ -43,11 +53,23 @@ class Dal {
                 query = `INSERT INTO ${specialty}(specialty_type) VALUES ("${models.specialty_type}");`;
             }
             this.conn.query(query, (err, results, fields) => {
-                console.log(results, fields, err)
                 if (err) reject(err);
                 else resolve(results);
             })
         })
+    }
+
+    async insertSpecialtyRelationship(specialtyVM) {
+        const { char_spec } = this.tables;
+        const { specialty, character } = specialtyVM;
+        const query = `INSERT INTO ${char_spec}(char_id, spec_id) VALUES (${character.id},${specialty.id});`;
+        return new Promise((resolve, reject) => {
+            let response = null;
+            this.conn.query(query, (err, results, fields) => {
+                if (err) reject(err);
+                else resolve(results);
+            })
+        });
     }
 
     async select(queryTable) {
