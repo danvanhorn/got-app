@@ -143,13 +143,11 @@ class Dal {
                             INNER JOIN ${ally_house} ac ON a.id = ac.ally_id
                             INNER JOIN ${house} h ON h.id = ac.house_id`, (err, results, fields) => {
                     if (err){
-                      console.log(results);
-                      console.log(err);
-                      reject(err);
+                        console.log(err)
+                        reject(err);
                     }
                     else {
                         specList = results.map(res => {
-                            console.log(res);
                             return new models.AllianceViewModel(
                                 new models.AllianceModel(res.ally_id, res.aname),
                                 new models.HouseModel(res.house_id, res.hname, res.sigil, res.location, res.lord_id, res.castle, res.words),
@@ -165,8 +163,7 @@ class Dal {
                        reject(err);
                      }
                     else {
-                        specList.push(results.map(res => {
-                            console.log(res);
+                        specList = specList.concat(results.map(res => {
                             return new models.AllianceViewModel(
                                 new models.AllianceModel(res.ally_id, res.name),
                                 null,
