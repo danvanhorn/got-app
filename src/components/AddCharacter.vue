@@ -63,6 +63,11 @@ export default {
         this.house
       );
       this.$emit('add-char', char);
+      this.fullName = "";
+      this.nickname = "";
+      this.age = 1;
+      this.gender = "";
+      this.house = "";
     }
   }
 };

@@ -10,7 +10,7 @@
     </div>
     <div v-else class='table-row'>
       <div v-if="edit" class="delete-button">
-        <button>Delete</button>
+        <button @click="$emit('delete-character', character)">Delete</button>
       </div>
       <div v-else/>
       <div class="table-item">{{fullName}}</div>
