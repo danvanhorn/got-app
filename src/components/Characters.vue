@@ -10,7 +10,7 @@
       <div v-if="edit">
         <add-char :edit="edit" :houses="houses" v-on:add-char="addCharacter"/>
       </div>
-      <row v-for="char in characters" :key="char.id" :character="char" :edit="edit"/>
+      <row v-for="char in characters" :key="char.id" :character="char" :edit="edit" @delete-character="deleteCharacter"/>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@
 import CharTableRow from "./CharTableRow.vue";
 import AddCharacter from "./AddCharacter.vue";
 import { fetchHouseModels } from "../clients/HouseClients";
-import { fetchCharacterModels, postCharacterModel } from "../clients/CharacterClients";
+import { fetchCharacterModels, postCharacterModel, deleteCharacterModel } from "../clients/CharacterClients";
 export default {
   name: "Characters",
   data() {
@@ -42,6 +42,12 @@ export default {
       postCharacterModel(character)
         .then(data => console.log(data))
         .catch(err => console.err(err))
+      this.getCharacters();
+    },
+    deleteCharacter(character){
+      deleteCharacterModel(character)
+        .then(res => console.log(res))
+        .then(err => console.log(err))
       this.getCharacters();
     },
     getHouses() {

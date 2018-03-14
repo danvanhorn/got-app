@@ -59,6 +59,12 @@ export default {
         this.words
       );
       this.$emit('add-house', house);
+      this.name = "";
+      this.sigil = "";
+      this.location = "";
+      this.lord = "";
+      this.castle = "";
+      this.words =  "";
     },
     getName(char) {
       return `${char.fname} ${char.lname}`;

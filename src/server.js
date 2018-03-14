@@ -59,6 +59,10 @@ app.post('/api/rel/:table', (req, res) => {
   }
 })
 
+app.post('/api/delete/got_character', (req, res) => {
+  
+})
+
 app.get('/api/view/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {

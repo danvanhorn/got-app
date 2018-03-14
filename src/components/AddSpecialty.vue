@@ -32,8 +32,9 @@ export default {
   methods: {
     addSpecialty() {
       const spec = new SpecialtyViewModel(this.specialty, this.character);
-      console.log(spec);
       this.$emit('add-spec-rel', spec);
+      this.specialty = null;
+      this.character = null;
     }
   }
 };
