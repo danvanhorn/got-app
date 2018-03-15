@@ -107,4 +107,3 @@ INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_characte
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Sansa" AND lname = "Stark"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jon" AND lname = "Snow"),(SELECT id FROM got_specialty WHERE specialty_type = "Leader"));
 INSERT INTO got_char_spec(char_id, spec_id) VALUES ((SELECT id FROM got_character WHERE fname = "Jon" AND lname = "Snow"),(SELECT id FROM got_specialty WHERE specialty_type = "Fighter"));
-

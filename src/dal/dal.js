@@ -10,8 +10,8 @@ class Dal {
             specialty: 'got_specialty',
             alliance: 'got_alliance',
             char_spec: 'got_char_spec',
-            ally_house: 'got_ally_house',
-            ally_char: 'got_ally_char'
+            ally_house: 'got_house_ally',
+            ally_char:  'got_char_ally'
         }
     }
 
@@ -106,7 +106,7 @@ class Dal {
         const { house, character } = this.tables;
         let houseList = [];
         return new Promise((resolve, reject) => {
-            this.conn.query(`SELECT h.id as id, name, sigil, location, CONCAT(fname,' ',lname) AS lord, castle, words  FROM ${house} h 
+            this.conn.query(`SELECT h.id as id, name, sigil, location, CONCAT(fname,' ',lname) AS lord, castle, words  FROM ${house} h
                             LEFT JOIN ${character} c ON c.id = h.lord_id`, (err, results, fields) => {
                     if (err) reject(err);
                     else {
@@ -123,7 +123,7 @@ class Dal {
         const { specialty, character, char_spec } = this.tables;
         let specList = [];
         return new Promise((resolve, reject) => {
-            this.conn.query(`SELECT s.id AS sid, specialty_type, c.id AS cid, fname, lname, nickname, gender, age, house FROM ${specialty} s 
+            this.conn.query(`SELECT s.id AS sid, specialty_type, c.id AS cid, fname, lname, nickname, gender, age, house FROM ${specialty} s
                             INNER JOIN ${char_spec} sc ON s.id = sc.spec_id
                             INNER JOIN ${character} c ON c.id = sc.char_id`, (err, results, fields) => {
                     if (err) reject(err);
@@ -139,27 +139,46 @@ class Dal {
         })
     }
 
-    // async getAllyViewData() {
-    //     const { alliance, character, char_spec } = this.tables;
-    //     let specList = [];
-    //     return new Promise((resolve, reject) => {
-    //         this.conn.query(`SELECT * FROM ${specialty} s 
-    //                         INNER JOIN ${char_spec} sc ON s.id = sc.spec_id
-    //                         INNER JOIN ${character} c ON c.id = sc.char_id`, (err, results, fields) => {
-    //                 if (err) reject(err);
-    //                 else {
-    //                     specList = results.map(res => {
-    //                         console.log(res);
-    //                         return new models.SpecialtyViewModel(
-    //                             new models.SpecialtyModel(res.sid, res.specialty_type),
-    //                             new models.CharacterModel(res.cid, res.fname, res.lname, res.nickname, res.gender, res.age, res.house)
-    //                         );
-    //                     });
-    //                     resolve(specList);
-    //                 }
-    //             })
-    //     })
-    // }
+    async getAllyViewData() {
+        const { alliance, character, house, ally_house, ally_char } = this.tables;
+        let specList = [];
+        return new Promise((resolve, reject) => {
+            this.conn.query(`SELECT h.name AS hname, a.name AS aname, location, ally_id, sigil, lord_id, castle, words, house_id FROM ${alliance} a
+                            INNER JOIN ${ally_house} ac ON a.id = ac.ally_id
+                            INNER JOIN ${house} h ON h.id = ac.house_id`, (err, results, fields) => {
+                    if (err){
+                        console.log(err)
+                        reject(err);
+                    }
+                    else {
+                        specList = results.map(res => {
+                            return new models.AllianceViewModel(
+                                new models.AllianceModel(res.ally_id, res.aname),
+                                new models.HouseModel(res.house_id, res.hname, res.sigil, res.location, res.lord_id, res.castle, res.words),
+                                null
+                            );
+                        });
+                    }
+                })
+            this.conn.query(`SELECT * FROM ${alliance} a
+                            INNER JOIN ${ally_char} ac ON a.id = ac.ally_id
+                            INNER JOIN ${character} c ON c.id = ac.char_id`, (err, results, fields) => {
+                    if (err){
+                       reject(err);
+                     }
+                    else {
+                        specList = specList.concat(results.map(res => {
+                            return new models.AllianceViewModel(
+                                new models.AllianceModel(res.ally_id, res.name),
+                                null,
+                                new models.CharacterModel(res.char_id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house)
+                            );
+                        }));
+                    }
+                    resolve(specList);
+                })
+        })
+    }
 }
 
 module.exports = Dal;
