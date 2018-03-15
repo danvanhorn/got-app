@@ -1,24 +1,34 @@
 <template>
-    <div class='table-row'>
+    <div v-if="ally === undefined" class='table-row'>
         <div/>
-        <div>alliance</div>
-        <div>character_name</div>
-        <div>housee_name</div>
+        <div><strong>Alliance</strong></div>
+        <div><strong>Character Name</strong></div>
+        <div><strong>House Name</strong></div>
         <div/>
+    </div>
+    <div v-else class='table-row'>
+      <div/>
+      <div class="table-item">{{ ally.alliance.name }}</div>
+      <div v-if="ally.character !== undefined" class="table-item">{{ fullName }}</div>
+      <div v-else/>
+      <div v-if="ally.house !== undefined" class="table-item">{{ ally.house.name }}</div>
+      <div v-else/>
+      <div/>
     </div>
 </template>
 
 <script>
-import { AllianceModel } from "../models/models";
+import { AllianceModel, AllianceViewModel, CharacterModel, HouseModel } from "../models/models";
 export default {
   name: "AllyTableRow",
-  props: {
-    // we will probably turn the required attribute to true when we have data
-    ally: {
-      type: new AllianceModel(),
-      required: false
+  props: ["ally"],
+  computed: {
+    fullName(){
+      console.log(this.ally);
+      const {fname, lname} = this.ally.character
+      return `${fname} ${lname}`
     }
-  }
+  },
 };
 </script>
 
@@ -28,4 +38,10 @@ export default {
   display: grid;
   grid-template-columns: 12.5% 25% 25% 25% 12.5%;
 }
+.table-item {
+  text-align: center;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
 </style>

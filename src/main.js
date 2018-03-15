@@ -10,15 +10,16 @@ import Specialties from './components/Specialties';
 import Houses from './components/Houses';
 
 
+
 Vue.config.productionTip = false;
 
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'hash',
+  mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/Home',
       name: 'Home',
       component: Home
     },
@@ -41,20 +42,10 @@ const router = new Router({
       path: '/Specialties',
       name: 'Specialties',
       component: Specialties
-    }
+    },
+    {path: '*'}
   ],
 });
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  components: {
-    App,
-    Home,
-    Characters,
-    Alliances,
-    Specialties
-  },
-  router,
-  render: h => h(App)
-});
+new Vue(Vue.util.extend({ router }, App)).$mount('#app');

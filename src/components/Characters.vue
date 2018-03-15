@@ -1,23 +1,65 @@
 <template>
-  <div>
+  <div class="table-container">
     <h2>Characters</h2>
-    <div class="table-container">
+    <div class="loading" v-if="loading === true">
+      Loading...
+    </div>
+    <div v-else>
+      <button v-on:click="toggleEdit">{{edit ? 'Cancel ': 'Edit'}}</button>
       <row/>
+      <div v-if="edit">
+        <add-char :edit="edit" :houses="houses" v-on:add-char="addCharacter"/>
+      </div>
+      <row v-for="char in characters" :key="char.id" :character="char" :edit="edit"/>
     </div>
   </div>
 </template>
 
 <script>
 import CharTableRow from "./CharTableRow.vue";
+import AddCharacter from "./AddCharacter.vue";
+import { fetchHouseModels } from "../clients/HouseClients";
+import { fetchCharacterModels, postCharacterModel } from "../clients/CharacterClients";
 export default {
   name: "Characters",
   data() {
     return {
-      msg: "Characters page"
+      edit: false,
+      characters: null,
+      houses: null,
+      loading: false
     };
   },
   components: {
-    row: CharTableRow
+    row: CharTableRow,
+    "add-char": AddCharacter
+  },
+  methods: {
+    toggleEdit() {
+      this.edit = !this.edit;
+    },
+    addCharacter(character){
+      postCharacterModel(character)
+        .then(data => console.log(data))
+        .catch(err => console.err(err))
+      this.getCharacters();
+    },
+    getHouses() {
+      fetchHouseModels()
+        .then(result => this.houses = result)
+        .catch(err => console.log(err));
+    },
+    getCharacters() {
+      fetchCharacterModels()
+        .then(result => this.characters = result)
+        .catch(err => console.log(err));
+    }
+  },
+  created() {
+    this.loading = true;
+    this.getCharacters();
+    this.getHouses();
+    this.loading = false;
   }
 };
 </script>

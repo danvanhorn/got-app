@@ -9,12 +9,16 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'build.[hash].js'
+    filename: 'build.js'
   },
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
+    proxy: {
+      "/api/*": "http://localhost:6969/api/"
+    }
   },
+
   module: {
     rules: [
       {
