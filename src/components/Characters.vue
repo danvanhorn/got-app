@@ -47,7 +47,7 @@ export default {
     deleteCharacter(character){
       deleteCharacterModel(character)
         .then(res => console.log(res))
-        .then(err => console.log(err))
+        .catch(err => console.log(err))
       this.getCharacters();
     },
     getHouses() {
