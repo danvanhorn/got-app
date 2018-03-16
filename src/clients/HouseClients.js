@@ -13,6 +13,19 @@ export async function postHouseModel(house){
   })
 }
 
+export async function postUpdateHouseModel(house){
+  return new Promise((resolve, reject) => {
+    window.fetch("api/update/got_house",{
+      method: "POST",
+      body: JSON.stringify(house),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(data => resolve(data))
+    .catch(err => reject(data))
+  })
+}
+
 export async function fetchHouseViewModels(){
     return new Promise((resolve, reject) => {
         let houseArray = [];

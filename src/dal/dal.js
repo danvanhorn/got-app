@@ -57,9 +57,9 @@ class Dal {
         return this.execute(query);
     }
 
-    async updateCharacter(char) {
-        const { character } = this.tables;
-        const query = `UPDATE ${character} SET id=${char.id},fname=${char.fname},lname=${char.lname},nickname=${char.nickname},gender=${char.gender},age=${char.age},house=${char.house} WHERE 1`;
+    async updateHouse(house) {
+        console.log(house);
+        const query = `UPDATE ${this.tables.house} SET name="${house.name}",sigil="${house.sigil}",location="${house.location}",lord_id=${house.lord.id},castle="${house.castle}",words="${house.words}" WHERE id=${house.id};`;
         return this.execute(query);
     }
 
@@ -111,7 +111,7 @@ class Dal {
                     if (err) reject(err);
                     else {
                         houseList = results.map(res =>
-                            new models.HouseModel(res.id, res.name, res.sigil, res.location, res.lord, res.castle, res.castle)
+                            new models.HouseModel(res.id, res.name, res.sigil, res.location, res.lord, res.castle, res.words)
                         );
                         resolve(houseList);
                     }

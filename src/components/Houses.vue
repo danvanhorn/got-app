@@ -8,11 +8,20 @@
       <button v-on:click="toggleEdit">
         {{edit ? 'Cancel ': 'Edit'}}
       </button>
-      <row/>
+      <div v-if="house === undefined" class='table-row'>
+        <div/>
+        <div><strong>Name</strong></div>
+        <div><strong>Sigil</strong></div>
+        <div><strong>Location</strong></div>
+        <div><strong>Lord</strong></div>
+        <div><strong>Castle</strong></div>
+        <div><strong>Words</strong></div>
+        <div/>
+    </div>
       <div v-if="edit">
         <add-house :characters="characters" @add-house="addHouse"/>
       </div>
-      <row v-for="house in houses" :key="house.id" :house="house" :edit="edit"/>
+      <row v-for="house in houses" :key="house.id" :house="house" :edit="edit" :characters="characters" @house-updated="getHouses"/>
     </div>
   </div>
 </template>
@@ -47,6 +56,7 @@ export default {
 
     },
     getHouses() {
+      console.log("calling get houses")
       fetchHouseViewModels()
         .then(result => this.houses = result)
         .catch(err => console.error(err));
@@ -68,5 +78,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.table-row {
+  display: grid;
+  grid-template-columns: 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5% 12.5%;
+}
 </style>
