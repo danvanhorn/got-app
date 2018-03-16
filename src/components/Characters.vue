@@ -1,6 +1,7 @@
 <template>
   <div class="table-container">
     <h2>Characters</h2>
+    <search-char @search-char="SearchCharacter"/>
     <div class="loading" v-if="loading === true">
       Loading...
     </div>
@@ -18,6 +19,7 @@
 <script>
 import CharTableRow from "./CharTableRow.vue";
 import AddCharacter from "./AddCharacter.vue";
+import SearchCharacter from "./SearchCharacters.vue";
 import { fetchHouseModels } from "../clients/HouseClients";
 import { fetchCharacterModels, postCharacterModel, deleteCharacterModel } from "../clients/CharacterClients";
 export default {
@@ -32,12 +34,14 @@ export default {
   },
   components: {
     row: CharTableRow,
-    "add-char": AddCharacter
+    "add-char": AddCharacter,
+    "search-char": SearchCharacter
   },
   methods: {
     toggleEdit() {
       this.edit = !this.edit;
     },
+    //search char thing here
     addCharacter(character){
       postCharacterModel(character)
         .then(data => console.log(data))
