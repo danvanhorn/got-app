@@ -20,7 +20,7 @@ CREATE TABLE got_house(
     words varchar(255),
     PRIMARY KEY (id),
     UNIQUE KEY(name),
-    FOREIGN KEY (lord_id) REFERENCES got_character(id) ON DELETE SET NULL ON UPDATE SET NULL
+    FOREIGN KEY (lord_id) REFERENCES got_character(id) ON UPDATE NO ACTION
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -34,7 +34,7 @@ CREATE TABLE got_character (
     house varchar(255),
     PRIMARY KEY (id),
     UNIQUE KEY (fname, lname),
-    FOREIGN KEY (house) REFERENCES got_house(name)
+    FOREIGN KEY (house) REFERENCES got_house(name) ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE got_specialty (

@@ -9,7 +9,7 @@ export async function postHouseModel(house){
         'Content-Type': 'application/json'
       })
     }).then(data => resolve(data))
-    .catch(err => reject(data))
+    .catch(err => reject(err))
   })
 }
 
@@ -22,7 +22,7 @@ export async function postUpdateHouseModel(house){
         'Content-Type': 'application/json'
       })
     }).then(data => resolve(data))
-    .catch(err => reject(data))
+    .catch(err => reject(err))
   })
 }
 
