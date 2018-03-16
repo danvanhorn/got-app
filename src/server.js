@@ -63,6 +63,12 @@ app.post('/api/delete/got_character', (req, res) => {
   
 })
 
+app.post('/api/update/got_house', (req, res) => {
+  dal.updateHouse(req.body)
+  .then(result => res.send(result))
+  .catch(err => res.sendStatus(500))
+})
+
 app.get('/api/view/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
