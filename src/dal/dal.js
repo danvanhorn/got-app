@@ -29,15 +29,64 @@ class Dal {
             return false;
         }
     }
-    
+
     // build the query and pass it in as an argument here
     async execute(query){
         return new Promise((resolve, reject) => {
             this.conn.query(query, (err, results, fields) => {
+                console.log("FUCKK", results);
                 if (err) reject(err);
                 else resolve(results);
             })
         })
+    }
+    async findChar(category, choice){
+      let query = "";
+      if(category === 'fname'){
+        query = `SELECT * FROM got_character WHERE ${category}  = "${choice}"`
+      }
+      if(category === 'lname'){
+        query = `SELECT * FROM got_character WHERE  ${category} = "${choice}"`
+
+      }
+      if(category === 'house'){
+        query = `SELECT * FROM got_character WHERE ${category} = "${choice}"`
+
+      }
+      if(category === 'nickname'){
+        query = `SELECT * FROM got_character WHERE ${category} = "${choice}"`
+
+      }
+      if(category === 'gender'){
+        query = `SELECT * FROM got_character WHERE ${category} = "${choice}"`
+
+      }
+      if(category === 'AgeLessThan'){
+        query = `SELECT * FROM got_character WHERE age < "${choice}"`
+
+      }
+      if(category === 'ageGreaterThan'){
+        query = `SELECT * FROM got_character WHERE age > "${choice}"`
+      }
+      return this.execute(query);
+    }
+
+    async getFromCharacter(col){
+      let query = "";
+      if(col === "fname"){
+          query = "SELECT fname FROM got_character ORDER BY fname"
+      }
+      if(col === "lname"){
+          query = "SELECT DISTINCT lname FROM got_character ORDER BY lname"
+      }
+      if(col === "house"){
+          query = "SELECT DISTINCT house FROM got_character ORDER BY house"
+      }
+      if(col === "nickname"){
+          query = "SELECT nickname FROM got_character ORDER BY nickname"
+      }
+      console.log("HEY BITCH",query);
+      return this.execute(query);
     }
 
     async insert(table, models) {
@@ -147,7 +196,6 @@ class Dal {
                             INNER JOIN ${ally_house} ac ON a.id = ac.ally_id
                             INNER JOIN ${house} h ON h.id = ac.house_id`, (err, results, fields) => {
                     if (err){
-                        console.log(err)
                         reject(err);
                     }
                     else {

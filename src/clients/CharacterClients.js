@@ -50,4 +50,41 @@ export async function fetchCharacterModels() {
       })
       .catch(error => reject(error));
   })
-} 
+}
+export async function findCharacters(category,choice){
+  return new Promise((resolve, reject) => {
+    let characterArray = [];
+    window
+      .fetch(`api/find_char/${category}/${choice}`)
+      .then(response => response.json())
+      .then(data => {
+        data.forEach(char => {
+          characterArray.push(
+            new CharacterModel(
+              char.id,
+              char.fname,
+              char.lname,
+              char.nickname,
+              char.gender,
+              char.age,
+              char.house
+            )
+          );
+        });
+        resolve(characterArray);
+      })
+      .catch(error => reject(error));
+  })
+}
+
+export async function SearchCharacter(column) {
+  return new Promise((resolve, reject) => {
+    let columnArray = []
+    window
+      .fetch(`api/get_char/${column}`)
+      .then(response => response.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+
+    })
+  }

@@ -25,6 +25,21 @@ app.get('/api/get/:table', (req, res) => {
   }
 })
 
+app.get('api/find_char/:category/:choice', (req, res) => {
+  const category = req.param.category;
+  const choice = req.params.choice;
+  dal.findChar(category, choice)
+    .then(result => res.json(result))
+    .catch(err => res.sendStatus(500))
+})
+
+app.get('/api/get_char/:column', (req, res) => {
+    const column = req.params.column;
+    dal.getFromCharacter(column)
+      .then(result => res.json(result))
+      .catch(err => res.sendStatus(500))
+})
+
 app.post('/api/add/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
@@ -59,9 +74,9 @@ app.post('/api/rel/:table', (req, res) => {
   }
 })
 
-app.post('/api/delete/got_character', (req, res) => {
-  
-})
+// app.post('/api/delete/got_character', (req, res) => {
+//
+// })
 
 app.post('/api/update/got_house', (req, res) => {
   dal.updateHouse(req.body)
@@ -80,7 +95,7 @@ app.get('/api/view/:table', (req, res) => {
       dal.getAllyViewData()
       .then(result => res.json(result))
       .catch(err => res.sendStatus(500))
-    } 
+    }
     else if (table === specialty) {
       dal.getSpecViewData()
         .then(result => res.json(result))
