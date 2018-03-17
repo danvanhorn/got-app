@@ -40,7 +40,6 @@ export default {
         })
           .then(function(data){
             data.forEach(ally => {
-            console.log(ally);
             alliancesArray.push(new AllianceViewModel(
               ally.alliance,
               ally.house,

@@ -16,35 +16,27 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/api/get/:table', (req, res) => {
+app.get('/api/get/:table', async (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
-    dal.select(table)
-      .then(result => res.json(result))
-      .catch(err => res.sendStatus(500))
+    try{
+      const result = await dal.select(table);
+      res.json(result);
+    }catch (err){
+      res.sendStatus(500);
+    }
   }
 })
 
 app.post('/api/add/:table', (req, res) => {
   const table = req.params.table;
-  if (dal.validateTable(table)) {
-    if (table === house) {
+  if (dal.validateTable(table)) {{
       dal.insert(table, req.body)
         .then(result => res.send(result))
         .catch(err => res.sendStatus(500))
-    } else if (table === character) {
-      dal.insert(table, req.body)
-        .then(result => res.send(result))
-        .catch(err => res.sendStatus(500))
-    } else if (table === specialty) {
-      dal.insert(table, req.body)
-        .then(result => res.send(result))
-        .catch(err => res.sendStatus(500))
-    } else if (table === alliance) {
-      // add alliance
     }
   } else {
-    res.send(500);
+    res.sendStatus(500);
   }
 })
 

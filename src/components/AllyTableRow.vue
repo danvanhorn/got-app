@@ -24,7 +24,6 @@ export default {
   props: ["ally"],
   computed: {
     fullName(){
-      console.log(this.ally);
       const {fname, lname} = this.ally.character
       return `${fname} ${lname}`
     }
