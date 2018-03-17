@@ -49,8 +49,9 @@ class Dal {
             if (err) reject(err);
             else {
               list = results.map(res => {
-                return new models.CharacterModel(res.fname, res.lname, res.nickname, res.gender, res.age, res.house);
-              })
+                return new models.CharacterModel(res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house);
+              });
+              console.log(list);
               resolve(list);
             }
           });
@@ -63,8 +64,9 @@ class Dal {
             if (err) reject(err);
             else {
               list = results.map(res => {
-                return new models.CharacterModel(res.fname, res.lname, res.nickname, res.gender, res.age, res.house);
+                return new models.CharacterModel(res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house);
               });
+              console.log(list);
               resolve(list);
             }
           });
@@ -77,8 +79,9 @@ class Dal {
             if (err) reject(err);
             else {
               list = results.map(res => {
-                return new models.CharacterModel(res.fname, res.lname, res.nickname, res.gender, res.age, res.house);
+                return new models.CharacterModel(res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house);
               });
+              console.log(list);
               resolve(list);
             }
           });
@@ -100,7 +103,6 @@ class Dal {
       if(col === "nickname"){
         query = "SELECT nickname FROM got_character ORDER BY nickname"
       }
-      console.log("HEY BITCH",query);
       return this.execute(query);
     }
 

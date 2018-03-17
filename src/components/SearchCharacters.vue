@@ -90,7 +90,7 @@
 
 <script>
 import { CharacterModel } from "../models/models";
-import {SearchCharacter} from "../clients/CharacterClients"
+import {SearchCharacter, findCharacters} from "../clients/CharacterClients"
 export default {
   name: "SearchCharacter",
   created() {
@@ -128,6 +128,7 @@ export default {
         this.category = "fname";
         this.choice = this.fname;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
 
         // send to characterclients a tuple of category as fname, and the choice
       }
@@ -135,31 +136,37 @@ export default {
         this.category = "lname";
         this.choice = this.lname;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
       }
       else if(this.category === "House") {
         this.category = "house";
         this.choice = this.house;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Nickname") {
         this.category = "nickname";
         this.choice = this.nickname;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Gender") {
         this.category = "gender";
         this.choice = this.gender;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Age Less Than") {
         this.category = "AgeLessThan";
         this.choice = this.ageLessThan;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Age Greater Than") {
         this.category = "ageGreaterThan";
         this.choice = this.ageGreaterThan;
         console.log(this.choice);
+        findCharacters(this.category, this.choice);
       }
     },
     getFnames(){

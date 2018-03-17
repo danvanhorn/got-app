@@ -25,9 +25,9 @@ app.get('/api/get/:table', (req, res) => {
   }
 })
 
-app.get('api/find_char/:category/:choice', (req, res) => {
-  const category = req.param.category;
-  const choice = req.params.choice;
+app.get('/api/find_char/:category/:choice', (req, res) => {
+  console.log("SUP, BITCH");
+  const {category, choice} = req.params;
   dal.findChar(category, choice)
     .then(result => res.json(result))
     .catch(err => res.sendStatus(500))
