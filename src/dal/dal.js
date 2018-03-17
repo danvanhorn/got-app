@@ -150,7 +150,7 @@ class Dal {
             list = results.map(res => {
               switch (queryTable) {
                 case character: return new models.CharacterModel(
-                  res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house,
+                  res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house
                 );
                 case house: return new models.HouseModel(
                   res.id, res.name, res.sigil, res.location, res.lord_id, res.castle, res.words
