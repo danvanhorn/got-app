@@ -4,8 +4,7 @@
       <div/>
     </div>
     <div id="nav" class="nav">
-      <router-link to="/">Home</router-link>&nbsp;
-      <router-link to="/Characters">Characters</router-link>&nbsp;
+      <router-link to="/">Characters</router-link>&nbsp;
       <router-link to="/Houses">Houses</router-link>&nbsp;
       <router-link to="/Alliances">Alliances</router-link>&nbsp;
       <router-link to="/Specialties">Specialties</router-link>&nbsp;

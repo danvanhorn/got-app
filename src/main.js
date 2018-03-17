@@ -3,7 +3,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import App from './App';
-import Home from './components/Home';
 import Characters from './components/Characters';
 import Alliances from './components/Alliances';
 import Specialties from './components/Specialties';
@@ -19,12 +18,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/Home',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/Characters',
+      path: '/',
       name: 'Characters',
       component: Characters
     },
