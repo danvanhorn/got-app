@@ -54,7 +54,6 @@ export async function fetchCharacterModels() {
 export async function findCharacters(category,choice){
   return new Promise((resolve, reject) => {
     let characterArray = [];
-    console.log("BITCH");
     window
       .fetch(`/api/find_char/${category}/${choice}`)
       .then(response => response.json())

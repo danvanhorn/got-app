@@ -1,10 +1,10 @@
 <template>
-  <div class="table-row">
+  <div class="container">
     <div class="loading" v-if="loading === true">
       Loading Search Tool...
     </div>
     <div class="search-char">
-      <label for="nameID">HARDEN THE FUCK UP</label>
+      <label for="nameID">Search On Characters Where</label> &nbsp;
       <select id="nameID" v-model="category">
         <option
         v-for="column in columns"
@@ -13,6 +13,9 @@
             {{column}}
         </option>
       </select>
+      <div v-if="category !== '' && category !== 'Age Greater Than' && category !== 'Age Less Than'">
+        Equals
+      </div> &nbsp;
       <div v-if="category === 'Fname'">
         <select v-model="fname">
           <option
@@ -85,12 +88,17 @@
       </div>
       <button @click="Search">Search</button>
     </div>
+      <div class="charList" v-if="characterList.length > 0">
+        <searchrow/>
+        <searchrow v-for="char in characterList" :key="char.id" :character="char"/>
+      </div>
   </div>
 </template>
 
 <script>
 import { CharacterModel } from "../models/models";
-import {SearchCharacter, findCharacters} from "../clients/CharacterClients"
+import CharTableRow from "./CharTableRow";
+import {SearchCharacter, findCharacters} from "../clients/CharacterClients";
 export default {
   name: "SearchCharacter",
   created() {
@@ -100,6 +108,9 @@ export default {
     this.getNicknames();
     this.getHouses();
     this.loading = false;
+  },
+  components: {
+    searchrow: CharTableRow
   },
   data() {
     return {
@@ -112,6 +123,7 @@ export default {
       ageGreaterThan: "",
       gender: "",
       ageMax: 100,
+      characterList: [],
       choices: [],
       fnames: [],
       lnames: [],
@@ -127,47 +139,35 @@ export default {
       if(this.category === "Fname") {
         this.category = "fname";
         this.choice = this.fname;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
-
-        // send to characterclients a tuple of category as fname, and the choice
       }
       else if(this.category === "Lname") {
         this.category = "lname";
         this.choice = this.lname;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
       }
       else if(this.category === "House") {
         this.category = "house";
         this.choice = this.house;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Nickname") {
         this.category = "nickname";
         this.choice = this.nickname;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Gender") {
         this.category = "gender";
         this.choice = this.gender;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Age Less Than") {
         this.category = "AgeLessThan";
         this.choice = this.ageLessThan;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
       }
       else if(this.category === "Age Greater Than") {
         this.category = "ageGreaterThan";
         this.choice = this.ageGreaterThan;
-        console.log(this.choice);
-        findCharacters(this.category, this.choice);
       }
+      findCharacters(this.category, this.choice)
+        .then(result => this.characterList = result)
+        .catch(err => console.log(err));
+        console.log(this.characterList);
     },
     getFnames(){
       let fnameArray = [];
@@ -215,6 +215,7 @@ export default {
 </script>
 <style scoped>
 
+
 input {
   background-color: #313740;
   border-top: 0;
@@ -224,7 +225,6 @@ input {
   outline: none;
   color: #b6bdcc;
 }
-
 select {
   border: 0;
   background-color: #313740;
@@ -240,6 +240,36 @@ input:hover {
 select:focus,
 input:focus {
   border-bottom: 2px solid #d78857;
+}
+.charList{
+  padding-bottom: 40px;
+}
+.table-row {
+  display: grid;
+  grid-template-columns: 12.5% 15% 15% 15% 15% 15% 12.5%;
+}
+
+.table-item {
+  text-align: left;
+  padding-top: 5px;
+  padding-right: 5px;
+}
+
+.delete-button {
+  padding-top: 5px;
+  padding-right: 10px;
+  justify-self: right;
+}
+.container{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.search-char{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>

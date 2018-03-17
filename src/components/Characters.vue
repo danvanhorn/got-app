@@ -1,7 +1,7 @@
 <template>
   <div class="table-container">
     <h2>Characters</h2>
-    <search-char @search-char="console.log('FUCK')"/>
+    <search-char/>
     <div class="loading" v-if="loading === true">
       Loading...
     </div>

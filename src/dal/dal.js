@@ -34,7 +34,6 @@ class Dal {
     async execute(query){
         return new Promise((resolve, reject) => {
             this.conn.query(query, (err, results, fields) => {
-                console.log("FUCKK", results);
                 if (err) reject(err);
                 else resolve(results);
             })
