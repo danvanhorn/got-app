@@ -123,9 +123,8 @@ class Dal {
     }
 
     async updateHouse(house) {
-      console.log(house);
-      const query = `UPDATE ${this.tables.house} SET name="${house.name}",sigil="${house.sigil}",location="${house.location}",lord_id=${house.lord.id},castle="${house.castle}",words="${house.words}" WHERE id=${house.id};`;
-      return this.execute(query);
+        const query = `UPDATE ${this.tables.house} SET name="${house.name}",sigil="${house.sigil}",location="${house.location}",lord_id=${house.lord.id},castle="${house.castle}",words="${house.words}" WHERE id=${house.id};`;
+        return this.execute(query);
     }
 
     async deleteCharacter(char) {
