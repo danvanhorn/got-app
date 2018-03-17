@@ -1,6 +1,6 @@
 import { SpecialtyModel, SpecialtyViewModel, CharacterModel } from "../models/models";
 
-export async function postSpecialtyModel(specialty){
+export  function postSpecialtyModel(specialty){
   return new Promise((resolve, reject) => {
     window.fetch("api/add/got_specialty",{
       method: "POST",
@@ -13,7 +13,7 @@ export async function postSpecialtyModel(specialty){
   })
 }
 
-export async function postSpecialtyViewModel(specialty, character){
+export  function postSpecialtyViewModel(specialty, character){
   return new Promise((resolve, reject) => {
     window.fetch("api/rel/got_char_spec",{
       method: "POST",
@@ -26,7 +26,7 @@ export async function postSpecialtyViewModel(specialty, character){
   })
 }
 
-export async function fetchSpecialtyViewModels() {
+export  function fetchSpecialtyViewModels() {
   return new Promise((resolve, reject) => {
     let specList = [];
     window
@@ -55,7 +55,7 @@ export async function fetchSpecialtyViewModels() {
   })
 }
 
-export async function fetchSpecialtyModels() {
+export  function fetchSpecialtyModels() {
   return new Promise((resolve, reject) => {
     let specList = [];
     window

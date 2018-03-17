@@ -1,6 +1,6 @@
 import { HouseModel } from "../models/models";
 
-export async function postHouseModel(house){
+export  function postHouseModel(house){
   return new Promise((resolve, reject) => {
     window.fetch("api/add/got_house",{
       method: "POST",
@@ -13,7 +13,7 @@ export async function postHouseModel(house){
   })
 }
 
-export async function postUpdateHouseModel(house){
+export  function postUpdateHouseModel(house){
   return new Promise((resolve, reject) => {
     window.fetch("api/update/got_house",{
       method: "POST",
@@ -26,7 +26,7 @@ export async function postUpdateHouseModel(house){
   })
 }
 
-export async function fetchHouseViewModels(){
+export  function fetchHouseViewModels(){
     return new Promise((resolve, reject) => {
         let houseArray = [];
         window.fetch("api/view/got_house")
@@ -52,7 +52,7 @@ export async function fetchHouseViewModels(){
     })
 } 
 
-export async function fetchHouseModels(){
+export  function fetchHouseModels(){
   return new Promise((resolve, reject) => {
       let houseArray = [];
       window.fetch("api/get/got_house")

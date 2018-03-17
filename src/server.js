@@ -16,35 +16,33 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/api/get/:table', async (req, res) => {
+app.get('/api/get/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
-    try{
-      const result = await dal.select(table);
-      res.json(result);
-    }catch (err){
-      res.sendStatus(500);
-    }
+    dal.select(table)
+      .then(result => res.json(result))
+      .catch(err => res.sendStatus(500));
   }
 })
 
 app.get('/api/find_char/:category/:choice', (req, res) => {
-  const {category, choice} = req.params;
+  const { category, choice } = req.params;
   dal.findChar(category, choice)
     .then(result => res.json(result))
     .catch(err => res.sendStatus(500))
 })
 
 app.get('/api/get_char/:column', (req, res) => {
-    const column = req.params.column;
-    dal.getFromCharacter(column)
-      .then(result => res.json(result))
-      .catch(err => res.sendStatus(500))
+  const column = req.params.column;
+  dal.getFromCharacter(column)
+    .then(result => res.json(result))
+    .catch(err => res.sendStatus(500))
 })
 
 app.post('/api/add/:table', (req, res) => {
   const table = req.params.table;
-  if (dal.validateTable(table)) {{
+  if (dal.validateTable(table)) {
+    {
       dal.insert(table, req.body)
         .then(result => res.send(result))
         .catch(err => res.sendStatus(500))
@@ -57,7 +55,7 @@ app.post('/api/add/:table', (req, res) => {
 app.post('/api/rel/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
-    if (table === char_spec){
+    if (table === char_spec) {
       dal.insertSpecialtyRelationship(req.body)
         .then(result => res.send(result))
         .catch(err => res.sendStatus(500))
@@ -73,8 +71,8 @@ app.post('/api/delete/got_character', (req, res) => {
 
 app.post('/api/update/got_house', (req, res) => {
   dal.updateHouse(req.body)
-  .then(result => res.send(result))
-  .catch(err => res.sendStatus(500))
+    .then(result => res.send(result))
+    .catch(err => res.sendStatus(500))
 })
 
 app.get('/api/view/:table', (req, res) => {
@@ -84,10 +82,10 @@ app.get('/api/view/:table', (req, res) => {
       dal.getHouseViewData()
         .then(result => res.json(result))
         .catch(err => res.sendStatus(500))
-    } else if(table == alliance) {
+    } else if (table == alliance) {
       dal.getAllyViewData()
-      .then(result => res.json(result))
-      .catch(err => res.sendStatus(500))
+        .then(result => res.json(result))
+        .catch(err => res.sendStatus(500))
     }
     else if (table === specialty) {
       dal.getSpecViewData()
