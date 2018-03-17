@@ -20,7 +20,7 @@ CREATE TABLE got_house(
     words varchar(255),
     PRIMARY KEY (id),
     UNIQUE KEY(name),
-    FOREIGN KEY (lord_id) REFERENCES got_character(id) ON UPDATE NO ACTION
+    FOREIGN KEY (lord_id) REFERENCES got_character(id) ON DELETE SET NULL ON UPDATE NO ACTION
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
