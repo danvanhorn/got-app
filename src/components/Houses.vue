@@ -56,7 +56,6 @@ export default {
 
     },
     getHouses() {
-      console.log("calling get houses")
       fetchHouseViewModels()
         .then(result => this.houses = result)
         .catch(err => console.error(err));
