@@ -74,9 +74,11 @@ app.post('/api/rel/:table', (req, res) => {
   }
 })
 
-// app.post('/api/delete/got_character', (req, res) => {
-//
-// })
+app.post('/api/delete/got_character', (req, res) => {
+  dal.deleteCharacter(req.body)
+    .then(result => res.send(result))
+    .catch(err => console.log(err));
+})
 
 app.post('/api/update/got_house', (req, res) => {
   dal.updateHouse(req.body)
