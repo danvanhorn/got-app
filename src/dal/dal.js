@@ -139,13 +139,13 @@ class Dal {
       const query = `INSERT INTO ${char_spec}(char_id, spec_id) VALUES (${character.id},${specialty.id});`;
       return this.execute(query);
     }
-    async insertAllianceCharacterRelationship(allianceVM) {
+    insertAllianceCharacterRelationship(allianceVM) {
       const { ally_char } = this.tables;
       const { alliance, character } = allianceVM;
       const query = `INSERT INTO ${ally_char}(char_id, ally_id) VALUES (${character.id},${alliance.id});`;
       return this.execute(query);
     }
-    async insertAllianceHouseRelationship(allianceVM) {
+    insertAllianceHouseRelationship(allianceVM) {
       const { ally_house } = this.tables;
       const { alliance, house } = allianceVM;
       const query = `INSERT INTO ${ally_house}(house_id, ally_id) VALUES (${house.id},${alliance.id});`;
