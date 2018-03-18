@@ -6,7 +6,7 @@ module.exports = class DbConnection {
       host: "classmysql.engr.oregonstate.edu",
       user: "cs340_singletb",
       password,
-      database: "cs340_singletb" 
+      database: "cs340_singletb"
     });
     this.connect();
   }
