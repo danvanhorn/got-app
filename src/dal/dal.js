@@ -31,7 +31,7 @@ class Dal {
     }
 
     // build the query and pass it in as an argument here
-    async execute(query){
+     execute(query){
         return new Promise((resolve, reject) => {
             this.conn.query(query, (err, results, fields) => {
                 if (err) reject(err);
@@ -39,7 +39,7 @@ class Dal {
             })
         })
     }
-    async findChar(category, choice){
+     findChar(category, choice){
       let query = "";
       if(category === 'fname' || category === 'lname' || category === 'house' || category === 'nickname' || category === 'gender'){
         return new Promise((resolve, reject) => {
@@ -88,7 +88,7 @@ class Dal {
       }
     }
 
-    async getFromCharacter(col){
+     getFromCharacter(col){
       let query = "";
       if(col === "fname"){
         query = "SELECT fname FROM got_character ORDER BY fname"
@@ -105,7 +105,7 @@ class Dal {
       return this.execute(query);
     }
 
-    async insert(table, models) {
+     insert(table, models) {
       const { character, house, specialty, alliance } = this.tables;
       let query = "";
       if (table === character) {
@@ -122,18 +122,18 @@ class Dal {
       return this.execute(query);
     }
 
-    async updateHouse(house) {
+     updateHouse(house) {
         const query = `UPDATE ${this.tables.house} SET name="${house.name}",sigil="${house.sigil}",location="${house.location}",lord_id=${house.lord.id},castle="${house.castle}",words="${house.words}" WHERE id=${house.id};`;
         return this.execute(query);
     }
 
-    async deleteCharacter(char) {
+     deleteCharacter(char) {
       const { character } = this.tables
       const query = `DELETE FROM ${character} WHERE id=${char.id};`;
       return this.execute(query);
     }
 
-    async insertSpecialtyRelationship(specialtyVM) {
+     insertSpecialtyRelationship(specialtyVM) {
       const { char_spec } = this.tables;
       const { specialty, character } = specialtyVM;
       const query = `INSERT INTO ${char_spec}(char_id, spec_id) VALUES (${character.id},${specialty.id});`;
@@ -153,7 +153,7 @@ class Dal {
     }
 
 
-    async select(queryTable) {
+     select(queryTable) {
       const { character, house, specialty, alliance } = this.tables;
       return new Promise((resolve, reject) => {
         let list = [];
@@ -163,7 +163,7 @@ class Dal {
             list = results.map(res => {
               switch (queryTable) {
                 case character: return new models.CharacterModel(
-                  res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house,
+                  res.id, res.fname, res.lname, res.nickname, res.gender, res.age, res.house
                 );
                 case house: return new models.HouseModel(
                   res.id, res.name, res.sigil, res.location, res.lord_id, res.castle, res.words
@@ -179,7 +179,7 @@ class Dal {
       })
     }
 
-    async getHouseViewData() {
+     getHouseViewData() {
       const { house, character } = this.tables;
       let houseList = [];
       return new Promise((resolve, reject) => {
@@ -196,7 +196,7 @@ class Dal {
       })
     }
 
-    async getSpecViewData() {
+     getSpecViewData() {
       const { specialty, character, char_spec } = this.tables;
       let specList = [];
       return new Promise((resolve, reject) => {
@@ -216,7 +216,7 @@ class Dal {
           })
         }
 
-        async getAllyViewData() {
+         getAllyViewData() {
           const { alliance, character, house, ally_house, ally_char } = this.tables;
           let specList = [];
           return new Promise((resolve, reject) => {

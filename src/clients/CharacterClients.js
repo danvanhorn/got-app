@@ -1,6 +1,6 @@
 import { CharacterModel } from "../models/models";
 
-export async function postCharacterModel(character) {
+export function postCharacterModel(character) {
   return new Promise((resolve, reject) => {
     window.fetch("api/add/got_character/", {
       method: "POST",
@@ -13,7 +13,7 @@ export async function postCharacterModel(character) {
   })
 }
 
-export async function deleteCharacterModel(character) {
+export function deleteCharacterModel(character) {
   return new Promise((resolve, reject) => {
     window.fetch("api/delete/got_character", {
       method: "POST",
@@ -26,7 +26,7 @@ export async function deleteCharacterModel(character) {
   })
 };
 
-export async function fetchCharacterModels() {
+export function fetchCharacterModels() {
   return new Promise((resolve, reject) => {
     let characterArray = [];
     window
@@ -51,7 +51,7 @@ export async function fetchCharacterModels() {
       .catch(error => reject(error));
   })
 }
-export async function findCharacters(category,choice){
+export function findCharacters(category, choice) {
   return new Promise((resolve, reject) => {
     let characterArray = [];
     window
@@ -77,7 +77,7 @@ export async function findCharacters(category,choice){
   })
 }
 
-export async function SearchCharacter(column) {
+export function SearchCharacter(column) {
   return new Promise((resolve, reject) => {
     let columnArray = []
     window
@@ -86,5 +86,5 @@ export async function SearchCharacter(column) {
       .then(data => resolve(data))
       .catch(error => reject(error));
 
-    })
-  }
+  })
+}
