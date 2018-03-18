@@ -10,7 +10,7 @@ const password = process.argv[4];
 
 // object that can query our database and return results
 const dal = new Dal(password);
-const { character, house, specialty, alliance, char_spec } = dal.tables;
+const { character, house, specialty, alliance, char_spec, ally_char, ally_house } = dal.tables;
 
 var app = express();
 app.use(bodyParser.json());
@@ -57,8 +57,19 @@ app.post('/api/add/:table', (req, res) => {
 app.post('/api/rel/:table', (req, res) => {
   const table = req.params.table;
   if (dal.validateTable(table)) {
+    console.log(req.body);
     if (table === char_spec){
       dal.insertSpecialtyRelationship(req.body)
+        .then(result => res.send(result))
+        .catch(err => res.sendStatus(500))
+    }
+    else if (table === ally_char){
+      dal.insertAllianceCharacterRelationship(req.body)
+        .then(result => res.send(result))
+        .catch(err => res.sendStatus(500))
+    }
+    else if (table === ally_house){
+      dal.insertAllianceHouseRelationship(req.body)
         .then(result => res.send(result))
         .catch(err => res.sendStatus(500))
     }

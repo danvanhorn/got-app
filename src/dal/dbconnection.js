@@ -4,9 +4,9 @@ module.exports = class DbConnection {
   constructor(password) {
     this.connection = mysql.createConnection({
       host: "classmysql.engr.oregonstate.edu",
-      user: "cs340_vanhornd",
+      user: "cs340_singletb",
       password,
-      database: "cs340_vanhornd" 
+      database: "cs340_singletb"
     });
     this.connect();
   }
